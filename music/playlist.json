@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Song One",
+    "artist": "Artist One",
+    "audioSrc": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    "coverArt": "https://via.placeholder.com/800x800/6c5ce7/ffffff?text=Song+One"
+  },
+  {
+    "title": "Song Two",
+    "artist": "Artist Two",
+    "audioSrc": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    "coverArt": "https://via.placeholder.com/800x800/6c5ce7/ffffff?text=Song+Two"
+  }
+]
