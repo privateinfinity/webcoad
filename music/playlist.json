@@ -1,14 +1,8 @@
 [
   {
-    "title": "Song One",
-    "artist": "Artist One",
-    "audioSrc": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    "coverArt": "https://via.placeholder.com/800x800/6c5ce7/ffffff?text=Song+One"
-  },
-  {
-    "title": "Song Two",
-    "artist": "Artist Two",
-    "audioSrc": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    "coverArt": "https://via.placeholder.com/800x800/6c5ce7/ffffff?text=Song+Two"
+    "title": "My GitHub Song",
+    "artist": "Me",
+    "audioSrc": "https://github.com/shm0210/music-player-assets/raw/dbe76e873191c408e8c281a530b70ed86b26ff6b/song1.mp3",
+    "coverArt": "https://via.placeholder.com/800x800/6c5ce7/ffffff?text=My+Song"
   }
 ]
