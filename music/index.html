@@ -793,6 +793,7 @@
             let playlist = [];
             let isShuffleOn = false;
             let isRepeatOn = false;
+            let isPlaying = false;
             
             // Load user preferences from localStorage
             function loadPreferences() {
@@ -844,17 +845,22 @@
                 }, 3000);
             }
             
-            // Load track
+            // Load track - UPDATED to handle playlist better
             function loadTrack(index) {
                 if (!playlist || playlist.length === 0) {
                     showNotification("No tracks in playlist");
                     return;
                 }
-                
+
+                // Ensure index is within bounds
+                if (index < 0) index = playlist.length - 1;
+                if (index >= playlist.length) index = 0;
+                currentTrackIndex = index;
+
                 // Show loading spinner
                 albumArt.classList.add('loading');
                 
-                const track = playlist[index];
+                const track = playlist[currentTrackIndex];
                 
                 // Fade out current album art
                 albumImg.classList.add('fade-out');
@@ -867,23 +873,20 @@
                     songTitle.textContent = track.title;
                     songArtist.textContent = track.artist;
                     miniPlayerTitle.textContent = track.title;
-                    miniPlayerArtist.textContent = track.artist.split(',')[0]; // Just show main artist in mini player
+                    miniPlayerArtist.textContent = track.artist.split(',')[0];
                     
                     // Preload album art
                     const img = new Image();
                     img.src = track.coverArt;
                     img.onload = () => {
-                        // Update album art with fade-in effect
                         albumImg.src = track.coverArt;
                         albumImg.alt = `${track.title} - ${track.artist}`;
                         albumImg.classList.remove('fade-out');
                         miniPlayerArt.style.backgroundImage = `url('${track.coverArt}')`;
-                        
-                        // Hide loading spinner
                         albumArt.classList.remove('loading');
                         
-                        // Try to play automatically
-                        if (!audio.paused) {
+                        // Auto-play if was playing
+                        if (isPlaying) {
                             audio.play().catch(e => {
                                 showNotification("Couldn't play automatically. Click play button.");
                             });
@@ -891,7 +894,6 @@
                     };
                     
                     img.onerror = () => {
-                        // Use a placeholder if image fails to load
                         albumImg.src = 'https://via.placeholder.com/800x800/6c5ce7/ffffff?text=No+Cover';
                         albumImg.alt = 'No cover art available';
                         albumImg.classList.remove('fade-out');
@@ -908,47 +910,53 @@
                         songArtist.style.transform = 'translateY(0)';
                     }, 50);
                     
-                }, 300); // Match this with CSS transition duration
+                }, 300);
             }
-            
-            // Play/Pause functionality
+
+            // Play/Pause functionality - UPDATED to track play state
             function togglePlay() {
                 if (audio.paused) {
                     audio.play().then(() => {
+                        isPlaying = true;
                         playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
                         miniPlayPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
                     }).catch(e => {
                         showNotification("Couldn't play the song. Please try again.");
                     });
                 } else {
+                    isPlaying = false;
                     audio.pause();
                     playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
                     miniPlayPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
                 }
             }
-            
-            // Previous track
+
+            // Previous track - UPDATED to properly handle playlist
             function prevTrack() {
+                if (playlist.length === 0) return;
+                
                 currentTrackIndex--;
                 if (currentTrackIndex < 0) {
                     currentTrackIndex = playlist.length - 1;
                 }
                 loadTrack(currentTrackIndex);
             }
-            
-            // Next track
+
+            // Next track - UPDATED to properly handle playlist
             function nextTrack() {
+                if (playlist.length === 0) return;
+                
                 if (isShuffleOn) {
-                    currentTrackIndex = Math.floor(Math.random() * playlist.length);
+                    let newIndex;
+                    do {
+                        newIndex = Math.floor(Math.random() * playlist.length);
+                    } while (newIndex === currentTrackIndex && playlist.length > 1);
+                    currentTrackIndex = newIndex;
                 } else {
                     currentTrackIndex++;
                     if (currentTrackIndex >= playlist.length) {
-                        if (isRepeatOn) {
-                            currentTrackIndex = 0;
-                        } else {
-                            currentTrackIndex = playlist.length - 1;
-                            return;
-                        }
+                        currentTrackIndex = isRepeatOn ? 0 : playlist.length - 1;
+                        if (!isRepeatOn) return;
                     }
                 }
                 loadTrack(currentTrackIndex);
@@ -1057,7 +1065,7 @@
                 }, 1000);
             }
             
-            // Fetch playlist from JSON file
+            // Fetch playlist from JSON file - UPDATED with better error handling
             function fetchPlaylist() {
                 fetch('playlist.json')
                     .then(response => {
@@ -1067,9 +1075,12 @@
                         return response.json();
                     })
                     .then(data => {
+                        if (!Array.isArray(data)) {
+                            throw new Error('Invalid playlist format');
+                        }
                         playlist = data;
                         if (playlist.length > 0) {
-                            loadTrack(currentTrackIndex);
+                            loadTrack(0);
                         } else {
                             showNotification("Playlist is empty");
                         }
@@ -1077,6 +1088,16 @@
                     .catch(error => {
                         showNotification("Failed to load playlist");
                         console.error('Error loading playlist:', error);
+                        // Fallback to default playlist if available
+                        playlist = [
+                            {
+                                "title": "Default Song",
+                                "artist": "Unknown Artist",
+                                "audioSrc": "",
+                                "coverArt": "https://via.placeholder.com/800x800/6c5ce7/ffffff?text=No+Song"
+                            }
+                        ];
+                        loadTrack(0);
                     });
             }
             
