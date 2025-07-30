@@ -4,21 +4,17 @@
     "artist": "Me",
     "audioSrc": "https://github.com/shm0210/music-player-assets/raw/dbe76e873191c408e8c281a530b70ed86b26ff6b/song1.mp3",
     "coverArt": "https://via.placeholder.com/800x800/6c5ce7/ffffff?text=My+Song"
-  }
-]
-[
+  },
   {
     "title": "My GitHub Song2",
     "artist": "Me",
-    "audioSrc": "https://github.com/shm0210/music-player-assets/raw/dbe76e873191c408e8c281a530b70ed86b26ff6b/song1.mp3",
-    "coverArt": "https://via.placeholder.com/800x800/6c5ce7/ffffff?text=My+Song"
-  }
-]
-[
+    "audioSrc": "https://github.com/shm0210/music-player-assets/raw/6430843ecfe01f3f8202d53bbc9322558390a487/song2.mp3",
+    "coverArt": "https://via.placeholder.com/800x800/6c5ce7/ffffff?text=My+Song2"
+  },
   {
     "title": "My GitHub Song3",
     "artist": "Me",
-    "audioSrc": "https://github.com/shm0210/music-player-assets/raw/dbe76e873191c408e8c281a530b70ed86b26ff6b/song1.mp3",
-    "coverArt": "https://via.placeholder.com/800x800/6c5ce7/ffffff?text=My+Song"
+    "audioSrc": "https://github.com/shm0210/music-player-assets/raw/6430843ecfe01f3f8202d53bbc9322558390a487/song3.mp3",
+    "coverArt": "https://via.placeholder.com/800x800/6c5ce7/ffffff?text=My+Song3"
   }
 ]
