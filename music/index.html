@@ -791,23 +791,8 @@
             const audio = new Audio();
             let currentTrackIndex = 0;
             let playlist = [];
-
-function fetchPlaylist() {
-  fetch('playlist.json')  // Make sure this file is in the same folder
-    .then(response => response.json())
-    .then(data => {
-      playlist = data;
-      loadTrack(currentTrackIndex); // Load first track
-    })
-    .catch(error => {
-      showNotification("Failed to load playlist.");
-      console.error(error);
-    });
-}
             let isShuffleOn = false;
             let isRepeatOn = false;
-            
-            st 3",
             
             // Load user preferences from localStorage
             function loadPreferences() {
@@ -861,6 +846,11 @@ function fetchPlaylist() {
             
             // Load track
             function loadTrack(index) {
+                if (!playlist || playlist.length === 0) {
+                    showNotification("No tracks in playlist");
+                    return;
+                }
+                
                 // Show loading spinner
                 albumArt.classList.add('loading');
                 
@@ -943,7 +933,7 @@ function fetchPlaylist() {
                 if (currentTrackIndex < 0) {
                     currentTrackIndex = playlist.length - 1;
                 }
-                
+                loadTrack(currentTrackIndex);
             }
             
             // Next track
@@ -961,7 +951,7 @@ function fetchPlaylist() {
                         }
                     }
                 }
-                
+                loadTrack(currentTrackIndex);
             }
             
             // Update progress bar
@@ -1045,6 +1035,11 @@ function fetchPlaylist() {
             // Download current track
             function downloadTrack() {
                 const track = playlist[currentTrackIndex];
+                if (!track) {
+                    showNotification("No track to download");
+                    return;
+                }
+                
                 showNotification("Preparing download...", true);
                 
                 // In a real app, this would initiate the actual download
@@ -1060,6 +1055,29 @@ function fetchPlaylist() {
                     link.click();
                     document.body.removeChild(link);
                 }, 1000);
+            }
+            
+            // Fetch playlist from JSON file
+            function fetchPlaylist() {
+                fetch('playlist.json')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        playlist = data;
+                        if (playlist.length > 0) {
+                            loadTrack(currentTrackIndex);
+                        } else {
+                            showNotification("Playlist is empty");
+                        }
+                    })
+                    .catch(error => {
+                        showNotification("Failed to load playlist");
+                        console.error('Error loading playlist:', error);
+                    });
             }
             
             function initPlayer() {
