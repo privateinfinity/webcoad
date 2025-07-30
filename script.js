@@ -1,0 +1,503 @@
+// script.js
+document.addEventListener('DOMContentLoaded', function() {
+  // Performance optimization - disable heavy animations on mobile/low-end devices
+  const isLowEndDevice = () => {
+    return window.matchMedia('(max-width: 640px)').matches || 
+           (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) ||
+           (navigator.deviceMemory && navigator.deviceMemory < 4);
+  };
+
+  // Initialize AOS with error handling
+  const initAOS = () => {
+    try {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 800,
+          once: true,
+          offset: 100,
+          easing: 'ease-in-out-quart',
+        });
+      }
+    } catch (e) {
+      console.error("AOS initialization failed:", e);
+    }
+  };
+
+  // Mobile Menu Functionality
+  const setupMobileMenu = () => {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const menuIcon = document.getElementById('menu-icon');
+    const menuNotification = document.getElementById('menu-notification');
+    const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+    
+    // Check for notifications (simulated)
+    const hasNotifications = true;
+    if (hasNotifications && menuNotification) {
+      menuNotification.classList.remove('hidden');
+    }
+    
+    // Toggle mobile menu with animation
+    const toggleMobileMenu = () => {
+      const isOpen = mobileMenu.classList.contains('hidden');
+      
+      if (isOpen) {
+        mobileMenu.classList.remove('hidden');
+        setTimeout(() => {
+          mobileMenu.classList.remove('opacity-0');
+          mobileMenu.classList.remove('-translate-y-5');
+        }, 10);
+        mobileMenuButton.setAttribute('aria-expanded', 'true');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+      } else {
+        mobileMenu.classList.add('opacity-0');
+        mobileMenu.classList.add('-translate-y-5');
+        setTimeout(() => {
+          mobileMenu.classList.add('hidden');
+        }, 300);
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+      }
+      
+      document.body.classList.toggle('overflow-hidden', isOpen);
+      if (menuIcon) menuIcon.classList.toggle('rotate-90');
+    };
+    
+    // Event listeners for mobile menu
+    if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    if (mobileMenuClose) mobileMenuClose.addEventListener('click', toggleMobileMenu);
+    
+    // Close mobile menu when clicking on a link
+    if (mobileMenu) {
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (e) => {
+          if (!link.querySelector('input')) {
+            toggleMobileMenu();
+          }
+        });
+      });
+    }
+  };
+
+  // Search Functionality
+  const setupSearch = () => {
+    const mobileSearchButton = document.getElementById('mobile-search-button');
+    const mobileSearch = document.getElementById('mobile-search');
+    const mobileSearchClose = document.getElementById('mobile-search-close');
+    const searchInput = document.getElementById('search-input');
+    const mobileSearchInput = document.getElementById('mobile-search-input');
+    const searchResults = document.getElementById('search-results');
+    const mobileSearchResults = document.getElementById('mobile-search-results');
+    
+    // Toggle mobile search
+    if (mobileSearchButton && mobileSearch) {
+      mobileSearchButton.addEventListener('click', () => {
+        mobileSearch.classList.toggle('hidden');
+        if (!mobileSearch.classList.contains('hidden') && mobileSearchInput) {
+          mobileSearchInput.focus();
+          mobileSearch.setAttribute('aria-hidden', 'false');
+        } else {
+          mobileSearch.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+    
+    if (mobileSearchClose) {
+      mobileSearchClose.addEventListener('click', () => {
+        if (mobileSearch) {
+          mobileSearch.classList.add('hidden');
+          mobileSearch.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+    
+    // Get real app data from the DOM
+    const getAppData = () => {
+      const apps = [];
+      document.querySelectorAll('.app-card').forEach(card => {
+        const linkElement = card.querySelector('a');
+        apps.push({
+          name: card.dataset.appName || 'Unknown App',
+          category: card.dataset.appCategory || 'Other',
+          link: linkElement?.href || '#',
+          description: card.querySelector('p')?.textContent || ''
+        });
+      });
+      return apps;
+    };
+
+    // Debounce function for search input
+    const debounce = (func, delay) => {
+      let timeoutId;
+      return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          func.apply(this, args);
+        }, delay);
+      };
+    };
+
+    // Handle search input with debounce
+    const handleSearch = (inputElement, resultsElement) => {
+      if (!inputElement || !resultsElement) return;
+      
+      const allApps = getAppData();
+      let debouncedSearch;
+      
+      const performSearch = (query) => {
+        if (query.length > 0) {
+          const filteredApps = allApps.filter(app => 
+            app.name.toLowerCase().includes(query.toLowerCase()) || 
+            app.category.toLowerCase().includes(query.toLowerCase()) ||
+            app.description.toLowerCase().includes(query.toLowerCase())
+          );
+          
+          // Display results
+          if (filteredApps.length > 0) {
+            resultsElement.innerHTML = filteredApps.map(app => `
+              <a href="${app.link}" class="block px-4 py-3 hover:bg-gray-700 transition-colors border-b border-gray-700 last:border-0">
+                <div class="font-medium">${app.name}</div>
+                <div class="text-xs text-gray-400">${app.category}</div>
+                <div class="text-xs text-gray-500 truncate">${app.description}</div>
+              </a>
+            `).join('');
+            resultsElement.classList.remove('hidden');
+          } else {
+            resultsElement.innerHTML = `
+              <div class="px-4 py-3 text-gray-400">
+                <div class="text-center mb-2">No results found for "${query}"</div>
+                <a href="#apps" class="block text-center text-primary-400 hover:text-primary-300">
+                  Browse all apps
+                </a>
+              </div>
+            `;
+            resultsElement.classList.remove('hidden');
+          }
+        } else {
+          resultsElement.classList.add('hidden');
+        }
+      };
+      
+      debouncedSearch = debounce((e) => {
+        performSearch(e.target.value.trim());
+      }, 300);
+      
+      inputElement.addEventListener('input', debouncedSearch);
+      
+      // Close results when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!inputElement.contains(e.target) && !resultsElement.contains(e.target)) {
+          resultsElement.classList.add('hidden');
+        }
+      });
+    };
+    
+    handleSearch(searchInput, searchResults);
+    handleSearch(mobileSearchInput, mobileSearchResults);
+  };
+
+  // User Dropdown
+  const setupUserDropdown = () => {
+    const userDropdownButton = document.getElementById('user-dropdown-button');
+    const userDropdown = document.getElementById('user-dropdown');
+    
+    if (userDropdownButton && userDropdown) {
+      userDropdownButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = userDropdown.classList.contains('hidden');
+        userDropdown.classList.toggle('hidden');
+        userDropdown.classList.toggle('scale-95');
+        userDropdown.classList.toggle('opacity-0');
+        userDropdownButton.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', () => {
+        if (!userDropdown.classList.contains('hidden')) {
+          userDropdown.classList.add('hidden');
+          userDropdown.classList.add('scale-95');
+          userDropdown.classList.add('opacity-0');
+          userDropdownButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  };
+
+  // Theme Toggle Functionality
+  const setupThemeToggle = () => {
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+    const html = document.documentElement;
+    
+    // Check for saved user preference or use system preference
+    const savedTheme = localStorage.getItem('theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    // Apply the saved theme
+    const applyTheme = (theme) => {
+      if (theme === 'light') {
+        html.classList.remove('dark');
+        if (themeIcon) {
+          themeIcon.setAttribute('d', 'M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z');
+        }
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#f8fafc');
+        if (mobileThemeToggle) mobileThemeToggle.checked = false;
+      } else {
+        html.classList.add('dark');
+        if (themeIcon) {
+          themeIcon.setAttribute('d', 'M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z');
+        }
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#0f172a');
+        if (mobileThemeToggle) mobileThemeToggle.checked = true;
+      }
+    };
+
+    applyTheme(savedTheme);
+
+    // Toggle theme
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        themeToggle.classList.add('animate-spin');
+        setTimeout(() => {
+          themeToggle.classList.remove('animate-spin');
+        }, 500);
+        
+        html.classList.toggle('dark');
+        const isDark = html.classList.contains('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        applyTheme(isDark ? 'dark' : 'light');
+      });
+    }
+
+    // Mobile theme toggle
+    if (mobileThemeToggle) {
+      mobileThemeToggle.checked = localStorage.getItem('theme') === 'dark';
+      
+      mobileThemeToggle.addEventListener('change', () => {
+        const isDark = mobileThemeToggle.checked;
+        html.classList.toggle('dark', isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        applyTheme(isDark ? 'dark' : 'light');
+      });
+    }
+  };
+
+  // Smooth scrolling for anchor links
+  const setupSmoothScrolling = () => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          
+          // Update URL without page jump
+          if (history.pushState) {
+            history.pushState(null, null, this.getAttribute('href'));
+          } else {
+            location.hash = this.getAttribute('href');
+          }
+        }
+      });
+    });
+  };
+
+  // Image loading states
+  const setupImageLoading = () => {
+    document.querySelectorAll('img').forEach(img => {
+      if (!img.complete) {
+        img.classList.add('animate-loading');
+      }
+      
+      img.addEventListener('load', () => {
+        img.classList.remove('animate-loading');
+      });
+      
+      img.addEventListener('error', () => {
+        img.classList.remove('animate-loading');
+        img.classList.add('img-error');
+        img.alt = img.alt || 'Failed to load image';
+      });
+    });
+  };
+
+  // Matrix Animation - only on desktop/high-end devices
+  const setupMatrixAnimation = () => {
+    const canvas = document.getElementById('matrix');
+    if (canvas && !isLowEndDevice()) {
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const chars = "01█▓▒░⣿";
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = Array(Math.floor(columns)).fill(1);
+
+      const draw = () => {
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = '#0ea5e9';
+        ctx.font = `${fontSize}px monospace`;
+
+        drops.forEach((y, i) => {
+          const text = chars[Math.floor(Math.random() * chars.length)];
+          ctx.fillText(text, i * fontSize, y * fontSize);
+          
+          if (y * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        });
+      };
+
+      let matrixInterval = setInterval(draw, 33);
+      
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }, 200);
+      });
+
+      // Cleanup on unmount
+      return () => clearInterval(matrixInterval);
+    }
+  };
+
+  // Particles Animation - only on desktop/high-end devices
+  const setupParticles = () => {
+    if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js') && !isLowEndDevice()) {
+      try {
+        particlesJS('particles-js', {
+          particles: {
+            number: { 
+              value: 80,
+              density: {
+                enable: true,
+                value_area: 800
+              } 
+            },
+            color: { value: '#0ea5e9' },
+            shape: { 
+              type: 'circle',
+              stroke: {
+                width: 0,
+                color: '#000000'
+              }
+            },
+            opacity: { 
+              value: 0.5,
+              random: true,
+              anim: {
+                enable: true,
+                speed: 1,
+                opacity_min: 0.1,
+                sync: false
+              }
+            },
+            size: { 
+              value: 3, 
+              random: true,
+              anim: {
+                enable: true,
+                speed: 2,
+                size_min: 0.3,
+                sync: false
+              }
+            },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: '#0ea5e9',
+              opacity: 0.3,
+              width: 1
+            },
+            move: {
+              enable: true,
+              speed: 1,
+              direction: 'none',
+              random: true,
+              straight: false,
+              out_mode: 'bounce',
+              bounce: true,
+              attract: {
+                enable: true,
+                rotateX: 600,
+                rotateY: 1200
+              }
+            }
+          },
+          interactivity: {
+            detect_on: 'canvas',
+            events: {
+              onhover: { 
+                enable: true, 
+                mode: 'repulse',
+                distance: 100
+              },
+              onclick: { 
+                enable: true, 
+                mode: 'push' 
+              },
+              resize: true
+            },
+            modes: {
+              repulse: {
+                distance: 100,
+                duration: 0.4
+              },
+              push: {
+                particles_nb: 4
+              }
+            }
+          },
+          retina_detect: true
+        });
+      } catch (e) {
+        console.error("Particles.js initialization failed:", e);
+      }
+    }
+  };
+
+  // Add floating animation to hero section elements
+  const setupHeroAnimations = () => {
+    const heroHeading = document.querySelector('#home h2');
+    const heroButtons = document.querySelectorAll('#home button');
+    
+    if (heroHeading && !isLowEndDevice()) {
+      heroHeading.classList.add('animate-float');
+    }
+    
+    if (heroButtons.length > 0 && !isLowEndDevice()) {
+      heroButtons[0].classList.add('animate-float');
+      heroButtons[0].style.animationDelay = '0.2s';
+      heroButtons[1].classList.add('animate-float');
+      heroButtons[1].style.animationDelay = '0.4s';
+    }
+  };
+
+  // Initialize all functionality
+  const init = () => {
+    initAOS();
+    setupMobileMenu();
+    setupSearch();
+    setupUserDropdown();
+    setupThemeToggle();
+    setupSmoothScrolling();
+    setupImageLoading();
+    setupMatrixAnimation();
+    setupParticles();
+    setupHeroAnimations();
+  };
+
+  init();
+});
