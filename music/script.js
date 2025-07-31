@@ -1,4 +1,4 @@
-// Sample music data
+// Updated script.js with 55 songs
 const songs = [
     {
         id: 1,
@@ -11,29 +11,379 @@ const songs = [
         id: 2,
         title: "Save Your Tears",
         artist: "The Weeknd",
-        cover: "https://github.com/shm0210/music-player-assets/raw/main/cover2.jpg",
-        audio: "https://github.com/shm0210/music-player-assets/raw/main/song2.mp3"
+        cover: "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452",
+        audio: "#"
     },
     {
         id: 3,
         title: "Stay",
         artist: "The Kid LAROI, Justin Bieber",
-        cover: "https://github.com/shm0210/music-player-assets/raw/main/cover3.jpg",
-        audio: "https://github.com/shm0210/music-player-assets/raw/main/song3.mp3"
+        cover: "https://i.scdn.co/image/ab67616d0000b273c5653f9038e42efad2f8a266",
+        audio: "#"
     },
     {
         id: 4,
         title: "Levitating",
         artist: "Dua Lipa",
-        cover: "https://github.com/shm0210/music-player-assets/raw/main/cover4.jpg",
-        audio: "https://github.com/shm0210/music-player-assets/raw/main/song4.mp3"
+        cover: "https://i.scdn.co/image/ab67616d0000b273f0d00e054e9a9cb2e86f8891",
+        audio: "#"
     },
     {
         id: 5,
         title: "Don't Start Now",
         artist: "Dua Lipa",
-        cover: "https://github.com/shm0210/music-player-assets/raw/main/cover5.jpg",
-        audio: "https://github.com/shm0210/music-player-assets/raw/main/song5.mp3"
+        cover: "https://i.scdn.co/image/ab67616d0000b273f0d00e054e9a9cb2e86f8891",
+        audio: "#"
+    },
+    {
+        id: 6,
+        title: "Blinding Lights",
+        artist: "The Weeknd",
+        cover: "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452",
+        audio: "#"
+    },
+    {
+        id: 7,
+        title: "Shape of You",
+        artist: "Ed Sheeran",
+        cover: "https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96",
+        audio: "#"
+    },
+    {
+        id: 8,
+        title: "Dance Monkey",
+        artist: "Tones and I",
+        cover: "https://i.scdn.co/image/ab67616d0000b273a6a88c208e93b7cd1a0d9e0b",
+        audio: "#"
+    },
+    {
+        id: 9,
+        title: "Watermelon Sugar",
+        artist: "Harry Styles",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 10,
+        title: "Circles",
+        artist: "Post Malone",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 11,
+        title: "Sunflower",
+        artist: "Post Malone, Swae Lee",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 12,
+        title: "Senorita",
+        artist: "Shawn Mendes, Camila Cabello",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 13,
+        title: "Bad Guy",
+        artist: "Billie Eilish",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 14,
+        title: "Lose You To Love Me",
+        artist: "Selena Gomez",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 15,
+        title: "Memories",
+        artist: "Maroon 5",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 16,
+        title: "Someone You Loved",
+        artist: "Lewis Capaldi",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 17,
+        title: "Perfect",
+        artist: "Ed Sheeran",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 18,
+        title: "Believer",
+        artist: "Imagine Dragons",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 19,
+        title: "Havana",
+        artist: "Camila Cabello",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 20,
+        title: "Closer",
+        artist: "The Chainsmokers",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 21,
+        title: "Uptown Funk",
+        artist: "Mark Ronson ft. Bruno Mars",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 22,
+        title: "Thinking Out Loud",
+        artist: "Ed Sheeran",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 23,
+        title: "All of Me",
+        artist: "John Legend",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 24,
+        title: "Counting Stars",
+        artist: "OneRepublic",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 25,
+        title: "Roar",
+        artist: "Katy Perry",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 26,
+        title: "Despacito",
+        artist: "Luis Fonsi",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 27,
+        title: "See You Again",
+        artist: "Wiz Khalifa ft. Charlie Puth",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 28,
+        title: "Love Yourself",
+        artist: "Justin Bieber",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 29,
+        title: "Sorry",
+        artist: "Justin Bieber",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 30,
+        title: "Sugar",
+        artist: "Maroon 5",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 31,
+        title: "Shallow",
+        artist: "Lady Gaga, Bradley Cooper",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 32,
+        title: "Happy",
+        artist: "Pharrell Williams",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 33,
+        title: "Radioactive",
+        artist: "Imagine Dragons",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 34,
+        title: "Dark Horse",
+        artist: "Katy Perry",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 35,
+        title: "Blank Space",
+        artist: "Taylor Swift",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 36,
+        title: "Take Me To Church",
+        artist: "Hozier",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 37,
+        title: "Royals",
+        artist: "Lorde",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 38,
+        title: "Wake Me Up",
+        artist: "Avicii",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 39,
+        title: "Pompeii",
+        artist: "Bastille",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 40,
+        title: "Let Her Go",
+        artist: "Passenger",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 41,
+        title: "Get Lucky",
+        artist: "Daft Punk ft. Pharrell Williams",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 42,
+        title: "Locked Out of Heaven",
+        artist: "Bruno Mars",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 43,
+        title: "Somebody That I Used To Know",
+        artist: "Gotye ft. Kimbra",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 44,
+        title: "Rolling in the Deep",
+        artist: "Adele",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 45,
+        title: "Someone Like You",
+        artist: "Adele",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 46,
+        title: "Firework",
+        artist: "Katy Perry",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 47,
+        title: "Grenade",
+        artist: "Bruno Mars",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 48,
+        title: "Just the Way You Are",
+        artist: "Bruno Mars",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 49,
+        title: "Viva La Vida",
+        artist: "Coldplay",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 50,
+        title: "Poker Face",
+        artist: "Lady Gaga",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 51,
+        title: "Bad Romance",
+        artist: "Lady Gaga",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 52,
+        title: "Hey There Delilah",
+        artist: "Plain White T's",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 53,
+        title: "I'm Yours",
+        artist: "Jason Mraz",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 54,
+        title: "Boulevard of Broken Dreams",
+        artist: "Green Day",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
+    },
+    {
+        id: 55,
+        title: "American Idiot",
+        artist: "Green Day",
+        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
+        audio: "#"
     }
 ];
 
