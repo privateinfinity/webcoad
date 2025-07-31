@@ -1,82 +1,70 @@
-[
-    {
-        "title": "Blinding Lights",
-        "artist": "The Weeknd",
-        "album": "After Hours",
-        "duration": "3:20",
-        "file": "music/the-weeknd-blinding-lights.mp3",
-        "cover": "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36"
-    },
-    {
-        "title": "Save Your Tears",
-        "artist": "The Weeknd",
-        "album": "After Hours",
-        "duration": "3:35",
-        "file": "music/the-weeknd-save-your-tears.mp3",
-        "cover": "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36"
-    },
-    {
-        "title": "Levitating",
-        "artist": "Dua Lipa",
-        "album": "Future Nostalgia",
-        "duration": "3:23",
-        "file": "music/dua-lipa-levitating.mp3",
-        "cover": "https://i.scdn.co/image/ab67616d0000b273a935e468a89e2e75b8b310c1"
-    },
-    {
-        "title": "Don't Start Now",
-        "artist": "Dua Lipa",
-        "album": "Future Nostalgia",
-        "duration": "3:03",
-        "file": "music/dua-lipa-dont-start-now.mp3",
-        "cover": "https://i.scdn.co/image/ab67616d0000b273a935e468a89e2e75b8b310c1"
-    },
-    {
-        "title": "Watermelon Sugar",
-        "artist": "Harry Styles",
-        "album": "Fine Line",
-        "duration": "2:54",
-        "file": "music/harry-styles-watermelon-sugar.mp3",
-        "cover": "https://i.scdn.co/image/ab67616d0000b2733a58f9eb9ff6362f2a82997b"
-    },
-    {
-        "title": "Adore You",
-        "artist": "Harry Styles",
-        "album": "Fine Line",
-        "duration": "3:27",
-        "file": "music/harry-styles-adore-you.mp3",
-        "cover": "https://i.scdn.co/image/ab67616d0000b2733a58f9eb9ff6362f2a82997b"
-    },
-    {
-        "title": "Circles",
-        "artist": "Post Malone",
-        "album": "Hollywood's Bleeding",
-        "duration": "3:35",
-        "file": "music/post-malone-circles.mp3",
-        "cover": "https://i.scdn.co/image/ab67616d0000b273e2d156fdc691f57900134342"
-    },
-    {
-        "title": "Sunflower",
-        "artist": "Post Malone, Swae Lee",
-        "album": "Spider-Man: Into the Spider-Verse",
-        "duration": "2:38",
-        "file": "music/post-malone-sunflower.mp3",
-        "cover": "https://i.scdn.co/image/ab67616d0000b2734c2fcea217112b13312f8fb2"
-    },
-    {
-        "title": "Dance Monkey",
-        "artist": "Tones and I",
-        "album": "The Kids Are Coming",
-        "duration": "3:29",
-        "file": "music/tones-and-i-dance-monkey.mp3",
-        "cover": "https://i.scdn.co/image/ab67616d0000b273a108e07c661f9fc54de9c43a"
-    },
-    {
-        "title": "Someone You Loved",
-        "artist": "Lewis Capaldi",
-        "album": "Divinely Uninspired To A Hellish Extent",
-        "duration": "3:02",
-        "file": "music/lewis-capaldi-someone-you-loved.mp3",
-        "cover": "https://i.scdn.co/image/ab67616d0000b273d6ec808748fa5b0c2d3a6618"
-    }
-]
+{
+    "playlists": [
+        {
+            "name": "Favorites",
+            "cover": "https://via.placeholder.com/300/6c5ce7/ffffff?text=Favorites",
+            "songs": [
+                {
+                    "title": "Blinding Lights",
+                    "artist": "The Weeknd",
+                    "album": "After Hours",
+                    "duration": "3:20",
+                    "file": "music/the-weeknd-blinding-lights.mp3",
+                    "cover": "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36"
+                },
+                {
+                    "title": "Save Your Tears",
+                    "artist": "The Weeknd",
+                    "album": "After Hours",
+                    "duration": "3:35",
+                    "file": "music/the-weeknd-save-your-tears.mp3",
+                    "cover": "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36"
+                }
+            ]
+        },
+        {
+            "name": "Workout Mix",
+            "cover": "https://via.placeholder.com/300/6c5ce7/ffffff?text=Workout",
+            "songs": [
+                {
+                    "title": "Levitating",
+                    "artist": "Dua Lipa",
+                    "album": "Future Nostalgia",
+                    "duration": "3:23",
+                    "file": "music/dua-lipa-levitating.mp3",
+                    "cover": "https://i.scdn.co/image/ab67616d0000b273a935e468a89e2e75b8b310c1"
+                },
+                {
+                    "title": "Don't Start Now",
+                    "artist": "Dua Lipa",
+                    "album": "Future Nostalgia",
+                    "duration": "3:03",
+                    "file": "music/dua-lipa-dont-start-now.mp3",
+                    "cover": "https://i.scdn.co/image/ab67616d0000b273a935e468a89e2e75b8b310c1"
+                }
+            ]
+        },
+        {
+            "name": "Chill Vibes",
+            "cover": "https://via.placeholder.com/300/6c5ce7/ffffff?text=Chill",
+            "songs": [
+                {
+                    "title": "Watermelon Sugar",
+                    "artist": "Harry Styles",
+                    "album": "Fine Line",
+                    "duration": "2:54",
+                    "file": "music/harry-styles-watermelon-sugar.mp3",
+                    "cover": "https://i.scdn.co/image/ab67616d0000b2733a58f9eb9ff6362f2a82997b"
+                },
+                {
+                    "title": "Adore You",
+                    "artist": "Harry Styles",
+                    "album": "Fine Line",
+                    "duration": "3:27",
+                    "file": "music/harry-styles-adore-you.mp3",
+                    "cover": "https://i.scdn.co/image/ab67616d0000b2733a58f9eb9ff6362f2a82997b"
+                }
+            ]
+        }
+    ]
+}
