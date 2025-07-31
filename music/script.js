@@ -87,25 +87,25 @@ function createDefaultPlaylists() {
         {
             id: 1,
             name: "Favorites",
-            cover: "https://via.placeholder.com/300/6c5ce7/ffffff?text=Favorites",
+            cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
             songs: [1, 2] // Using song IDs
         },
         {
             id: 2,
             name: "Workout Mix",
-            cover: "https://via.placeholder.com/300/00b894/ffffff?text=Workout",
+            cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
             songs: [1] // Using song IDs
         },
         {
             id: 3,
             name: "Chill Vibes",
-            cover: "https://via.placeholder.com/300/0984e3/ffffff?text=Chill",
+            cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
             songs: [2] // Using song IDs
         },
         {
             id: 4,
             name: "Road Trip",
-            cover: "https://via.placeholder.com/300/fdcb6e/ffffff?text=Trip",
+            cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
             songs: [1, 2] // Using song IDs
         }
     ];

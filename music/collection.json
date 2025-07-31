@@ -10,10 +10,10 @@
         },
         {
             "id": 2,
-            "title": "Sample Song 2",
-            "artist": "Sample Artist 2",
-            "cover": "https://via.placeholder.com/150",
-            "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "title": "Do Pal",
+            "artist": "ABRK",
+            "cover": "https://github.com/shm0210/music-player-assets/blob/142ef74720d4bb04b540aa906980d1488fe8d5a6/Do%20Pal%20-%20ABRK.jpg",
+            "source": "https://github.com/shm0210/music-player-assets/blob/142ef74720d4bb04b540aa906980d1488fe8d5a6/Do%20Pal%20-%20ABRK.mp3",
             "duration": 210
         }
     ]
