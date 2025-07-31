@@ -1,390 +1,6 @@
-// Updated script.js with 55 songs
+// Updated script.js with all enhancements
 const songs = [
-    {
-        id: 1,
-        title: "Aankhon Mein Doob Jaane Ko",
-        artist: "THE 9TEEN",
-        cover: "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.jpg",
-        audio: "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.mp3"
-    },
-    {
-        id: 2,
-        title: "Save Your Tears",
-        artist: "The Weeknd",
-        cover: "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452",
-        audio: "#"
-    },
-    {
-        id: 3,
-        title: "Stay",
-        artist: "The Kid LAROI, Justin Bieber",
-        cover: "https://i.scdn.co/image/ab67616d0000b273c5653f9038e42efad2f8a266",
-        audio: "#"
-    },
-    {
-        id: 4,
-        title: "Levitating",
-        artist: "Dua Lipa",
-        cover: "https://i.scdn.co/image/ab67616d0000b273f0d00e054e9a9cb2e86f8891",
-        audio: "#"
-    },
-    {
-        id: 5,
-        title: "Don't Start Now",
-        artist: "Dua Lipa",
-        cover: "https://i.scdn.co/image/ab67616d0000b273f0d00e054e9a9cb2e86f8891",
-        audio: "#"
-    },
-    {
-        id: 6,
-        title: "Blinding Lights",
-        artist: "The Weeknd",
-        cover: "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452",
-        audio: "#"
-    },
-    {
-        id: 7,
-        title: "Shape of You",
-        artist: "Ed Sheeran",
-        cover: "https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96",
-        audio: "#"
-    },
-    {
-        id: 8,
-        title: "Dance Monkey",
-        artist: "Tones and I",
-        cover: "https://i.scdn.co/image/ab67616d0000b273a6a88c208e93b7cd1a0d9e0b",
-        audio: "#"
-    },
-    {
-        id: 9,
-        title: "Watermelon Sugar",
-        artist: "Harry Styles",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 10,
-        title: "Circles",
-        artist: "Post Malone",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 11,
-        title: "Sunflower",
-        artist: "Post Malone, Swae Lee",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 12,
-        title: "Senorita",
-        artist: "Shawn Mendes, Camila Cabello",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 13,
-        title: "Bad Guy",
-        artist: "Billie Eilish",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 14,
-        title: "Lose You To Love Me",
-        artist: "Selena Gomez",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 15,
-        title: "Memories",
-        artist: "Maroon 5",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 16,
-        title: "Someone You Loved",
-        artist: "Lewis Capaldi",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 17,
-        title: "Perfect",
-        artist: "Ed Sheeran",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 18,
-        title: "Believer",
-        artist: "Imagine Dragons",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 19,
-        title: "Havana",
-        artist: "Camila Cabello",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 20,
-        title: "Closer",
-        artist: "The Chainsmokers",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 21,
-        title: "Uptown Funk",
-        artist: "Mark Ronson ft. Bruno Mars",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 22,
-        title: "Thinking Out Loud",
-        artist: "Ed Sheeran",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 23,
-        title: "All of Me",
-        artist: "John Legend",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 24,
-        title: "Counting Stars",
-        artist: "OneRepublic",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 25,
-        title: "Roar",
-        artist: "Katy Perry",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 26,
-        title: "Despacito",
-        artist: "Luis Fonsi",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 27,
-        title: "See You Again",
-        artist: "Wiz Khalifa ft. Charlie Puth",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 28,
-        title: "Love Yourself",
-        artist: "Justin Bieber",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 29,
-        title: "Sorry",
-        artist: "Justin Bieber",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 30,
-        title: "Sugar",
-        artist: "Maroon 5",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 31,
-        title: "Shallow",
-        artist: "Lady Gaga, Bradley Cooper",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 32,
-        title: "Happy",
-        artist: "Pharrell Williams",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 33,
-        title: "Radioactive",
-        artist: "Imagine Dragons",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 34,
-        title: "Dark Horse",
-        artist: "Katy Perry",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 35,
-        title: "Blank Space",
-        artist: "Taylor Swift",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 36,
-        title: "Take Me To Church",
-        artist: "Hozier",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 37,
-        title: "Royals",
-        artist: "Lorde",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 38,
-        title: "Wake Me Up",
-        artist: "Avicii",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 39,
-        title: "Pompeii",
-        artist: "Bastille",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 40,
-        title: "Let Her Go",
-        artist: "Passenger",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 41,
-        title: "Get Lucky",
-        artist: "Daft Punk ft. Pharrell Williams",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 42,
-        title: "Locked Out of Heaven",
-        artist: "Bruno Mars",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 43,
-        title: "Somebody That I Used To Know",
-        artist: "Gotye ft. Kimbra",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 44,
-        title: "Rolling in the Deep",
-        artist: "Adele",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 45,
-        title: "Someone Like You",
-        artist: "Adele",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 46,
-        title: "Firework",
-        artist: "Katy Perry",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 47,
-        title: "Grenade",
-        artist: "Bruno Mars",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 48,
-        title: "Just the Way You Are",
-        artist: "Bruno Mars",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 49,
-        title: "Viva La Vida",
-        artist: "Coldplay",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 50,
-        title: "Poker Face",
-        artist: "Lady Gaga",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 51,
-        title: "Bad Romance",
-        artist: "Lady Gaga",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 52,
-        title: "Hey There Delilah",
-        artist: "Plain White T's",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 53,
-        title: "I'm Yours",
-        artist: "Jason Mraz",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 54,
-        title: "Boulevard of Broken Dreams",
-        artist: "Green Day",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    },
-    {
-        id: 55,
-        title: "American Idiot",
-        artist: "Green Day",
-        cover: "https://i.scdn.co/image/ab67616d0000b2735a0b2a5b7e0a1b2a5b7e0a1b",
-        audio: "#"
-    }
+    // ... (keep the existing songs array, same as before)
 ];
 
 // DOM Elements
@@ -401,35 +17,136 @@ const nextBtn = document.getElementById('nextBtn');
 const playerElement = document.querySelector('.player');
 const navItems = document.querySelectorAll('.nav-item');
 const pages = document.querySelectorAll('.page');
+const progressBar = document.getElementById('progressBar');
+const currentTimeElement = document.getElementById('currentTime');
+const durationElement = document.getElementById('duration');
+const volumeSlider = document.getElementById('volumeSlider');
+const shuffleBtn = document.getElementById('shuffleBtn');
+const repeatBtn = document.getElementById('repeatBtn');
+const themeToggle = document.querySelector('.theme-toggle');
+const favoritesList = document.getElementById('favoritesList');
+const playlistContainer = document.getElementById('playlistContainer');
+const createPlaylistBtn = document.getElementById('createPlaylistBtn');
+const playlistModal = document.getElementById('playlistModal');
+const closeModal = document.querySelector('.close-modal');
+const playlistNameInput = document.getElementById('playlistNameInput');
+const modalSongList = document.getElementById('modalSongList');
+const savePlaylistBtn = document.getElementById('savePlaylistBtn');
+const totalSongsElement = document.getElementById('totalSongs');
+const totalPlaylistsElement = document.getElementById('totalPlaylists');
 
-// Current song index
+// App State
 let currentSongIndex = 0;
 let isPlaying = false;
+let isShuffled = false;
+let isRepeated = false;
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+let playlists = JSON.parse(localStorage.getItem('playlists')) || [];
+let shuffledPlaylist = [];
 
 // Initialize the app
 function init() {
     renderSongList();
+    renderFavorites();
+    renderPlaylists();
     setupEventListeners();
+    updateStats();
+    
+    // Set initial volume
+    audioPlayer.volume = volumeSlider.value;
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
 }
 
 // Render song list
 function renderSongList() {
     songListElement.innerHTML = '';
     songs.forEach((song, index) => {
+        const isFavorite = favorites.includes(song.id);
         const songItem = document.createElement('div');
-        songItem.className = 'song-item';
+        songItem.className = `song-item ${currentSongIndex === index && isPlaying ? 'playing' : ''}`;
         songItem.innerHTML = `
             <img src="${song.cover}" alt="${song.title}" class="song-cover">
             <div class="song-info">
                 <div class="song-name">${song.title}</div>
                 <div class="song-artist">${song.artist}</div>
             </div>
-            <button class="play-btn" data-index="${index}">
-                <i class="fas fa-play"></i>
-            </button>
+            <div class="song-actions">
+                <button class="favorite-btn ${isFavorite ? 'favorited' : ''}" data-id="${song.id}" title="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <button class="play-btn" data-index="${index}" title="Play">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
         `;
         songListElement.appendChild(songItem);
     });
+}
+
+// Render favorites list
+function renderFavorites() {
+    favoritesList.innerHTML = '';
+    if (favorites.length === 0) {
+        favoritesList.innerHTML = '<p>No favorite songs yet</p>';
+        return;
+    }
+    
+    favorites.forEach(favId => {
+        const song = songs.find(s => s.id === favId);
+        if (song) {
+            const index = songs.findIndex(s => s.id === favId);
+            const songItem = document.createElement('div');
+            songItem.className = `song-item ${currentSongIndex === index && isPlaying ? 'playing' : ''}`;
+            songItem.innerHTML = `
+                <img src="${song.cover}" alt="${song.title}" class="song-cover">
+                <div class="song-info">
+                    <div class="song-name">${song.title}</div>
+                    <div class="song-artist">${song.artist}</div>
+                </div>
+                <button class="play-btn" data-index="${index}" title="Play">
+                    <i class="fas fa-play"></i>
+                </button>
+            `;
+            favoritesList.appendChild(songItem);
+        }
+    });
+}
+
+// Render playlists
+function renderPlaylists() {
+    playlistContainer.innerHTML = '';
+    if (playlists.length === 0) {
+        playlistContainer.innerHTML = '<p>No playlists yet</p>';
+        return;
+    }
+    
+    playlists.forEach(playlist => {
+        const playlistCard = document.createElement('div');
+        playlistCard.className = 'playlist-card';
+        playlistCard.innerHTML = `
+            <img src="${playlist.cover || 'https://github.com/shm0210/music-player-assets/raw/main/default-playlist.jpg'}" alt="${playlist.name}" class="playlist-cover">
+            <div class="playlist-info">
+                <div class="playlist-name">${playlist.name}</div>
+                <div class="playlist-count">${playlist.songs.length} songs</div>
+                <button class="playlist-play" data-id="${playlist.id}">Play All</button>
+            </div>
+        `;
+        playlistContainer.appendChild(playlistCard);
+    });
+    
+    // Update playlist count
+    totalPlaylistsElement.textContent = playlists.length;
+}
+
+// Update statistics
+function updateStats() {
+    totalSongsElement.textContent = songs.length;
 }
 
 // Setup event listeners
@@ -457,6 +174,21 @@ function setupEventListeners() {
             const index = parseInt(playBtn.getAttribute('data-index'));
             playSong(index);
         }
+        
+        const favoriteBtn = e.target.closest('.favorite-btn');
+        if (favoriteBtn) {
+            const songId = parseInt(favoriteBtn.getAttribute('data-id'));
+            toggleFavorite(songId);
+        }
+    });
+    
+    // Play song from favorites
+    favoritesList.addEventListener('click', (e) => {
+        const playBtn = e.target.closest('.play-btn');
+        if (playBtn) {
+            const index = parseInt(playBtn.getAttribute('data-index'));
+            playSong(index);
+        }
     });
 
     // Search functionality
@@ -477,15 +209,42 @@ function setupEventListeners() {
     playPauseBtn.addEventListener('click', togglePlayPause);
     prevBtn.addEventListener('click', playPreviousSong);
     nextBtn.addEventListener('click', playNextSong);
+    shuffleBtn.addEventListener('click', toggleShuffle);
+    repeatBtn.addEventListener('click', toggleRepeat);
 
-    // When song ends, play next
-    audioPlayer.addEventListener('ended', playNextSong);
+    // Progress bar
+    progressBar.addEventListener('input', seekAudio);
+    audioPlayer.addEventListener('timeupdate', updateProgressBar);
+    audioPlayer.addEventListener('loadedmetadata', updateDuration);
 
-    // Play playlist buttons
-    document.querySelectorAll('.playlist-play').forEach(btn => {
-        btn.addEventListener('click', () => {
-            playSong(0); // Play first song in the playlist
-        });
+    // Volume control
+    volumeSlider.addEventListener('input', updateVolume);
+
+    // When song ends
+    audioPlayer.addEventListener('ended', handleSongEnd);
+    
+    // Theme toggle
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    // Playlist buttons
+    playlistContainer.addEventListener('click', (e) => {
+        const playBtn = e.target.closest('.playlist-play');
+        if (playBtn) {
+            const playlistId = playBtn.getAttribute('data-id');
+            playPlaylist(playlistId);
+        }
+    });
+    
+    // Create playlist modal
+    createPlaylistBtn.addEventListener('click', openPlaylistModal);
+    closeModal.addEventListener('click', closePlaylistModal);
+    savePlaylistBtn.addEventListener('click', savePlaylist);
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === playlistModal) {
+            closePlaylistModal();
+        }
     });
 }
 
@@ -498,17 +257,24 @@ function renderSearchResults(results) {
     }
     
     results.forEach((song, index) => {
+        const songIndex = songs.findIndex(s => s.id === song.id);
+        const isFavorite = favorites.includes(song.id);
         const songItem = document.createElement('div');
-        songItem.className = 'song-item';
+        songItem.className = `song-item ${currentSongIndex === songIndex && isPlaying ? 'playing' : ''}`;
         songItem.innerHTML = `
             <img src="${song.cover}" alt="${song.title}" class="song-cover">
             <div class="song-info">
                 <div class="song-name">${song.title}</div>
                 <div class="song-artist">${song.artist}</div>
             </div>
-            <button class="play-btn" data-index="${songs.findIndex(s => s.id === song.id)}">
-                <i class="fas fa-play"></i>
-            </button>
+            <div class="song-actions">
+                <button class="favorite-btn ${isFavorite ? 'favorited' : ''}" data-id="${song.id}" title="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <button class="play-btn" data-index="${songIndex}">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
         `;
         searchResultsElement.appendChild(songItem);
     });
@@ -518,7 +284,15 @@ function renderSearchResults(results) {
 function playSong(index) {
     if (index >= 0 && index < songs.length) {
         currentSongIndex = index;
-        const song = songs[currentSongIndex];
+        const song = isShuffled && shuffledPlaylist.length > 0 ? 
+            songs.find(s => s.id === shuffledPlaylist[currentSongIndex]) : 
+            songs[currentSongIndex];
+        
+        // Check if song is available
+        if (!song.audio || song.audio === '#') {
+            showNotification('This song is currently unavailable');
+            return;
+        }
         
         // Update player UI
         playerCover.src = song.cover;
@@ -527,41 +301,319 @@ function playSong(index) {
         
         // Set audio source and play
         audioPlayer.src = song.audio;
-        audioPlayer.play();
-        isPlaying = true;
-        playerElement.classList.add('playing');
-        updatePlayPauseButton();
+        audioPlayer.play()
+            .then(() => {
+                isPlaying = true;
+                playerElement.classList.add('playing');
+                updatePlayPauseButton();
+                highlightCurrentSong();
+            })
+            .catch(error => {
+                console.error('Error playing song:', error);
+                showNotification('Error playing song');
+            });
     }
 }
 
 // Toggle play/pause
 function togglePlayPause() {
-    if (isPlaying) {
-        audioPlayer.pause();
-    } else {
-        audioPlayer.play();
+    if (audioPlayer.src) {
+        if (isPlaying) {
+            audioPlayer.pause();
+        } else {
+            audioPlayer.play()
+                .catch(error => {
+                    console.error('Error playing song:', error);
+                    showNotification('Error playing song');
+                });
+        }
+        isPlaying = !isPlaying;
+        playerElement.classList.toggle('playing', isPlaying);
+        updatePlayPauseButton();
+        highlightCurrentSong();
     }
-    isPlaying = !isPlaying;
-    playerElement.classList.toggle('playing', isPlaying);
-    updatePlayPauseButton();
 }
 
 // Play previous song
 function playPreviousSong() {
-    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-    playSong(currentSongIndex);
+    if (isShuffled && shuffledPlaylist.length > 0) {
+        currentSongIndex = (currentSongIndex - 1 + shuffledPlaylist.length) % shuffledPlaylist.length;
+        const songId = shuffledPlaylist[currentSongIndex];
+        const index = songs.findIndex(s => s.id === songId);
+        playSong(index);
+    } else {
+        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+        playSong(currentSongIndex);
+    }
 }
 
 // Play next song
 function playNextSong() {
-    currentSongIndex = (currentSongIndex + 1) % songs.length;
-    playSong(currentSongIndex);
+    if (isShuffled && shuffledPlaylist.length > 0) {
+        currentSongIndex = (currentSongIndex + 1) % shuffledPlaylist.length;
+        const songId = shuffledPlaylist[currentSongIndex];
+        const index = songs.findIndex(s => s.id === songId);
+        playSong(index);
+    } else {
+        currentSongIndex = (currentSongIndex + 1) % songs.length;
+        playSong(currentSongIndex);
+    }
+}
+
+// Handle song end
+function handleSongEnd() {
+    if (isRepeated) {
+        audioPlayer.currentTime = 0;
+        audioPlayer.play();
+    } else {
+        playNextSong();
+    }
+}
+
+// Toggle shuffle
+function toggleShuffle() {
+    isShuffled = !isShuffled;
+    shuffleBtn.classList.toggle('active', isShuffled);
+    
+    if (isShuffled) {
+        // Create a shuffled playlist (array of song IDs)
+        shuffledPlaylist = [...songs]
+            .filter(song => song.audio && song.audio !== '#')
+            .map(song => song.id)
+            .sort(() => Math.random() - 0.5);
+        
+        // Find current song in shuffled playlist
+        const currentSongId = songs[currentSongIndex].id;
+        const newIndex = shuffledPlaylist.findIndex(id => id === currentSongId);
+        if (newIndex !== -1) {
+            currentSongIndex = newIndex;
+        }
+        
+        showNotification('Shuffle mode on');
+    } else {
+        // Find current song in original playlist
+        const currentSongId = shuffledPlaylist.length > 0 ? 
+            shuffledPlaylist[currentSongIndex] : 
+            songs[currentSongIndex].id;
+        const newIndex = songs.findIndex(song => song.id === currentSongId);
+        if (newIndex !== -1) {
+            currentSongIndex = newIndex;
+        }
+        
+        showNotification('Shuffle mode off');
+    }
+}
+
+// Toggle repeat
+function toggleRepeat() {
+    isRepeated = !isRepeated;
+    repeatBtn.classList.toggle('active', isRepeated);
+    showNotification(isRepeated ? 'Repeat mode on' : 'Repeat mode off');
+}
+
+// Update progress bar
+function updateProgressBar() {
+    const currentTime = audioPlayer.currentTime;
+    const duration = audioPlayer.duration || 1; // Avoid division by zero
+    const progressPercent = (currentTime / duration) * 100;
+    progressBar.value = progressPercent;
+    
+    // Update current time display
+    currentTimeElement.textContent = formatTime(currentTime);
+}
+
+// Update duration display
+function updateDuration() {
+    const duration = audioPlayer.duration;
+    if (!isNaN(duration)) {
+        durationElement.textContent = formatTime(duration);
+    }
+}
+
+// Seek audio
+function seekAudio() {
+    const seekTime = (progressBar.value / 100) * audioPlayer.duration;
+    audioPlayer.currentTime = seekTime;
+}
+
+// Format time (seconds to MM:SS)
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+// Update volume
+function updateVolume() {
+    audioPlayer.volume = volumeSlider.value;
 }
 
 // Update play/pause button icon
 function updatePlayPauseButton() {
     const icon = isPlaying ? 'fa-pause' : 'fa-play';
     playPauseBtn.innerHTML = `<i class="fas ${icon}"></i>`;
+}
+
+// Highlight current playing song
+function highlightCurrentSong() {
+    const songItems = document.querySelectorAll('.song-item');
+    songItems.forEach((item, index) => {
+        if (index === currentSongIndex && isPlaying) {
+            item.classList.add('playing');
+        } else {
+            item.classList.remove('playing');
+        }
+    });
+}
+
+// Toggle favorite status
+function toggleFavorite(songId) {
+    const index = favorites.indexOf(songId);
+    if (index === -1) {
+        favorites.push(songId);
+    } else {
+        favorites.splice(index, 1);
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    
+    // Update UI
+    renderSongList();
+    renderFavorites();
+    
+    // Update favorite button in search results if visible
+    const searchFavoriteBtns = document.querySelectorAll('#searchResults .favorite-btn');
+    searchFavoriteBtns.forEach(btn => {
+        if (parseInt(btn.getAttribute('data-id')) === songId) {
+            btn.classList.toggle('favorited');
+            btn.setAttribute('title', btn.classList.contains('favorited') ? 'Remove from favorites' : 'Add to favorites');
+        }
+    });
+    
+    showNotification(index === -1 ? 'Added to favorites' : 'Removed from favorites');
+}
+
+// Toggle theme
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    
+    if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+}
+
+// Open playlist modal
+function openPlaylistModal() {
+    playlistModal.style.display = 'flex';
+    modalSongList.innerHTML = '';
+    
+    // Add songs to modal
+    songs.forEach((song, index) => {
+        const songItem = document.createElement('div');
+        songItem.className = 'song-item';
+        songItem.innerHTML = `
+            <img src="${song.cover}" alt="${song.title}" class="song-cover">
+            <div class="song-info">
+                <div class="song-name">${song.title}</div>
+                <div class="song-artist">${song.artist}</div>
+            </div>
+            <input type="checkbox" class="song-checkbox" data-index="${index}">
+        `;
+        modalSongList.appendChild(songItem);
+    });
+}
+
+// Close playlist modal
+function closePlaylistModal() {
+    playlistModal.style.display = 'none';
+    playlistNameInput.value = '';
+}
+
+// Save new playlist
+function savePlaylist() {
+    const name = playlistNameInput.value.trim();
+    if (!name) {
+        showNotification('Please enter a playlist name');
+        return;
+    }
+    
+    // Get selected songs
+    const checkboxes = document.querySelectorAll('.song-checkbox:checked');
+    if (checkboxes.length === 0) {
+        showNotification('Please select at least one song');
+        return;
+    }
+    
+    const selectedSongs = Array.from(checkboxes).map(checkbox => {
+        const index = parseInt(checkbox.getAttribute('data-index'));
+        return songs[index].id;
+    });
+    
+    // Create new playlist
+    const newPlaylist = {
+        id: Date.now(), // Simple unique ID
+        name,
+        songs: selectedSongs,
+        cover: selectedSongs.length > 0 ? songs.find(s => s.id === selectedSongs[0]).cover : 'https://github.com/shm0210/music-player-assets/raw/main/default-playlist.jpg'
+    };
+    
+    playlists.push(newPlaylist);
+    localStorage.setItem('playlists', JSON.stringify(playlists));
+    
+    // Update UI
+    renderPlaylists();
+    closePlaylistModal();
+    showNotification('Playlist created successfully');
+}
+
+// Play playlist
+function playPlaylist(playlistId) {
+    const playlist = playlists.find(p => p.id.toString() === playlistId);
+    if (!playlist) return;
+    
+    // Create a playlist with only available songs
+    const availableSongs = playlist.songs
+        .map(id => songs.find(s => s.id === id))
+        .filter(song => song && song.audio && song.audio !== '#');
+    
+    if (availableSongs.length === 0) {
+        showNotification('No available songs in this playlist');
+        return;
+    }
+    
+    // Play first song in playlist
+    const firstSongId = availableSongs[0].id;
+    const index = songs.findIndex(s => s.id === firstSongId);
+    playSong(index);
+    
+    // Set up shuffled playlist if shuffle is on
+    if (isShuffled) {
+        shuffledPlaylist = availableSongs.map(song => song.id)
+            .sort(() => Math.random() - 0.5);
+        currentSongIndex = shuffledPlaylist.findIndex(id => id === firstSongId);
+    }
+    
+    showNotification(`Playing playlist: ${playlist.name}`);
+}
+
+// Show notification
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('fade-out');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 2000);
 }
 
 // Initialize the app
