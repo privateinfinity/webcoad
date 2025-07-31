@@ -77,6 +77,14 @@ async function loadSongs() {
                 source: "https://github.com/shm0210/music-player-assets/raw/142ef74720d4bb04b540aa906980d1488fe8d5a6/Do%20Pal%20-%20ABRK.mp3",
                 duration: 210
             }
+            {
+            "id": 3,
+            "title": "O Meri Laila",
+            "artist": "Atif Aslam, Jyotica Tangri",
+            "cover": "https://github.com/shm0210/music-player-assets/raw/76862ba1f700d99c392112f41a7b26993eb76164/O%20Meri%20Laila%20-%20Atif%20Aslam_%20Jyotica%20Tangri.jpg",
+            "source": "https://github.com/shm0210/music-player-assets/raw/76862ba1f700d99c392112f41a7b26993eb76164/O%20Meri%20Laila%20-%20Atif%20Aslam_%20Jyotica%20Tangri.mp3",
+            "duration": 210
+        }
         ];
     }
 }
@@ -88,7 +96,7 @@ function createDefaultPlaylists() {
             id: 1,
             name: "Favorites",
             cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
-            songs: [1, 2] // Using song IDs
+            songs: [1, 2, 3] // Using song IDs
         },
         {
             id: 2,
