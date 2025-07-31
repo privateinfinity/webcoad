@@ -4,93 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harmony | Modern Music Player</title>
+    <meta name="description" content="A modern music player web application">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="assets/icons/favicon.ico">
 </head>
 <body class="dark-mode">
     <div class="app-container">
-        <main class="content-area" id="page-content">
-            <!-- Pages will be loaded here dynamically -->
+        <main class="content-area" id="page-content" aria-live="polite">
+            <!-- Pages loaded dynamically -->
         </main>
 
-        <nav class="bottom-nav">
-            <a href="#" class="nav-item active" data-page="home">
-                <i class="fas fa-home"></i>
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a href="#" class="nav-item active" data-page="home" aria-label="Home">
+                <i class="fas fa-home" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
-            <a href="#" class="nav-item" data-page="search">
-                <i class="fas fa-search"></i>
+            <a href="#" class="nav-item" data-page="search" aria-label="Search">
+                <i class="fas fa-search" aria-hidden="true"></i>
                 <span>Search</span>
             </a>
-            <a href="#" class="nav-item" data-page="playlists">
-                <i class="fas fa-list"></i>
+            <a href="#" class="nav-item" data-page="playlists" aria-label="Playlists">
+                <i class="fas fa-list" aria-hidden="true"></i>
                 <span>Playlists</span>
             </a>
-            <a href="#" class="nav-item" data-page="profile">
-                <i class="fas fa-user"></i>
+            <a href="#" class="nav-item" data-page="profile" aria-label="Profile">
+                <i class="fas fa-user" aria-hidden="true"></i>
                 <span>Profile</span>
             </a>
         </nav>
 
         <!-- Mini Player -->
-        <div class="mini-player">
+        <div class="mini-player" role="region" aria-label="Now playing">
             <div class="mini-player-content">
                 <div class="mini-album-art">
-                    <img id="mini-album-art" src="https://via.placeholder.com/50" alt="Album Art">
+                    <img id="mini-album-art" src="assets/icons/default-album.png" alt="Album cover" aria-hidden="true">
                 </div>
                 <div class="mini-song-info">
-                    <span id="mini-song-title">No song playing</span>
-                    <span id="mini-song-artist">Artist</span>
+                    <span id="mini-song-title" aria-live="polite">No song playing</span>
+                    <span id="mini-song-artist">Select a song to play</span>
                 </div>
                 <div class="mini-player-controls">
-                    <button class="mini-control-btn" id="mini-prev-btn">
-                        <i class="fas fa-step-backward"></i>
+                    <button class="mini-control-btn" id="mini-prev-btn" aria-label="Previous song">
+                        <i class="fas fa-step-backward" aria-hidden="true"></i>
                     </button>
-                    <button class="mini-control-btn" id="mini-play-btn">
-                        <i class="fas fa-play"></i>
+                    <button class="mini-control-btn" id="mini-play-btn" aria-label="Play/pause">
+                        <i class="fas fa-play" aria-hidden="true"></i>
                     </button>
-                    <button class="mini-control-btn" id="mini-next-btn">
-                        <i class="fas fa-step-forward"></i>
+                    <button class="mini-control-btn" id="mini-next-btn" aria-label="Next song">
+                        <i class="fas fa-step-forward" aria-hidden="true"></i>
                     </button>
                 </div>
+                <div class="mini-volume-control">
+                    <i class="fas fa-volume-up" aria-hidden="true"></i>
+                    <input type="range" id="mini-volume" min="0" max="1" step="0.01" value="0.7" aria-label="Volume control">
+                </div>
             </div>
-            <div class="mini-progress-bar">
-                <div class="mini-progress" id="mini-progress"></div>
+            <div class="mini-progress-container">
+                <div class="mini-progress-bar">
+                    <div class="mini-progress" id="mini-progress"></div>
+                </div>
+                <input type="range" id="mini-seek" min="0" max="100" step="0.1" value="0" aria-label="Seek control">
             </div>
         </div>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast" aria-live="assertive"></div>
     </div>
 
-    <audio id="audio-player"></audio>
+    <audio id="audio-player" aria-hidden="true"></audio>
 
     <!-- Templates -->
     <template id="home-page">
         <div class="page home-page">
-            <h2 class="page-title">All Songs</h2>
-            <div class="songs-grid" id="songs-grid">
-                <!-- Songs will be loaded here -->
+            <h1 class="page-title">All Songs</h1>
+            <div class="songs-grid" id="songs-grid" role="list">
+                <!-- Songs loaded dynamically -->
             </div>
         </div>
     </template>
 
     <template id="search-page">
         <div class="page search-page">
-            <h2 class="page-title">Search</h2>
+            <h1 class="page-title">Search</h1>
             <div class="search-container">
-                <input type="text" id="search-input" placeholder="Search for songs...">
-                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search for songs..." aria-label="Search songs">
+                <i class="fas fa-search" aria-hidden="true"></i>
             </div>
-            <div class="search-results" id="search-results">
-                <!-- Search results will appear here -->
+            <div class="search-results" id="search-results" role="list">
+                <!-- Search results appear here -->
             </div>
         </div>
     </template>
 
     <template id="playlists-page">
         <div class="page playlists-page">
-            <h2 class="page-title">Your Playlists</h2>
-            <div class="playlists-grid" id="playlists-grid">
-                <!-- Playlists will be loaded here -->
+            <h1 class="page-title">Your Playlists</h1>
+            <div class="playlists-grid" id="playlists-grid" role="list">
+                <!-- Playlists loaded here -->
             </div>
         </div>
     </template>
@@ -99,7 +110,7 @@
         <div class="page profile-page">
             <div class="profile-header">
                 <div class="profile-pic">
-                    <img src="https://via.placeholder.com/100" alt="Profile Picture">
+                    <img src="assets/icons/default-profile.png" alt="Profile picture">
                 </div>
                 <h2 class="profile-name">Music Lover</h2>
                 <p class="profile-email">user@example.com</p>
@@ -119,8 +130,14 @@
                 </div>
             </div>
             <div class="profile-actions">
-                <button class="btn" id="theme-toggle">
+                <button class="btn" id="theme-toggle" aria-label="Toggle dark mode">
                     <i class="fas fa-moon"></i> Toggle Dark Mode
+                </button>
+                <button class="btn" id="shuffle-btn" aria-label="Enable shuffle">
+                    <i class="fas fa-random"></i> Shuffle
+                </button>
+                <button class="btn" id="repeat-btn" aria-label="Enable repeat">
+                    <i class="fas fa-redo"></i> Repeat
                 </button>
             </div>
         </div>
@@ -128,24 +145,30 @@
 
     <template id="playlist-songs-template">
         <div class="playlist-songs-page">
+            <button class="btn back-btn" id="back-to-playlists" aria-label="Back to playlists">
+                <i class="fas fa-arrow-left"></i> Back to Playlists
+            </button>
             <div class="playlist-header">
                 <div class="playlist-cover">
-                    <img id="playlist-cover-img" src="https://via.placeholder.com/150" alt="Playlist Cover">
+                    <img id="playlist-cover-img" src="assets/icons/default-playlist.png" alt="Playlist cover">
                 </div>
                 <div class="playlist-info">
                     <h2 id="playlist-name">Playlist Name</h2>
                     <p id="playlist-song-count">0 songs</p>
-                    <button class="btn" id="play-all-btn">
+                    <button class="btn" id="play-all-btn" aria-label="Play all songs">
                         <i class="fas fa-play"></i> Play All
+                    </button>
+                    <button class="btn" id="shuffle-playlist-btn" aria-label="Shuffle playlist">
+                        <i class="fas fa-random"></i> Shuffle
                     </button>
                 </div>
             </div>
-            <div class="playlist-songs-list" id="playlist-songs-list">
-                <!-- Playlist songs will be loaded here -->
+            <div class="playlist-songs-list" id="playlist-songs-list" role="list">
+                <!-- Playlist songs loaded here -->
             </div>
         </div>
     </template>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
