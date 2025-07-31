@@ -3,130 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shubham's Music Player</title>
+    <title>Harmony | Music Player</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
 </head>
-<body>
-    <!-- Pages -->
-    <div class="page active" id="home">
-        <h1>Your Library</h1>
-        <div class="song-list" id="songList">
-            <!-- Songs will be added here dynamically -->
-        </div>
-    </div>
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <i class="fas fa-music"></i>
+                <span>Harmony</span>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="icon-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="icon-btn" id="now-playing-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
+        </header>
 
-    <div class="page" id="search">
-        <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search for songs, artists..." id="searchInput">
-        </div>
-        <div class="song-list" id="searchResults">
-            <!-- Search results will be added here dynamically -->
-        </div>
-    </div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Page (Default) -->
+            <section id="home-page" class="page active">
+                <h2 class="page-title">All Songs</h2>
+                <div class="songs-container" id="all-songs">
+                    <!-- Songs will be loaded here -->
+                </div>
+            </section>
 
-    <div class="page" id="playlists">
-        <h1>Your Playlists</h1>
-        <div class="playlist-grid">
-            <div class="playlist-card">
-                <img src="https://github.com/shm0210/music-player-assets/raw/main/playlist1.jpg" alt="Playlist Cover" class="playlist-cover">
-                <div class="playlist-info">
-                    <div class="playlist-name">Chill Vibes</div>
-                    <div class="playlist-count">12 songs</div>
-                    <button class="playlist-play">Play All</button>
+            <!-- Search Page -->
+            <section id="search-page" class="page">
+                <div class="search-container">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Search songs, artists...">
+                        <button id="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="search-results" id="search-results">
+                        <!-- Search results will appear here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Playlist Page -->
+            <section id="playlist-page" class="page">
+                <h2 class="page-title">Your Playlists</h2>
+                <div class="playlists-container" id="playlists">
+                    <!-- Playlists will be loaded here -->
+                </div>
+                <div class="playlist-songs-container" id="playlist-songs-container">
+                    <!-- Songs in selected playlist will appear here -->
+                </div>
+            </section>
+
+            <!-- Profile Page -->
+            <section id="profile-page" class="page">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h2>SHUBHAM</h2>
+                        <p class="profile-subtitle">Music Enthusiast</p>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-songs">0</span>
+                            <span class="stat-label">Songs</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-playlists">0</span>
+                            <span class="stat-label">Playlists</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-hours">0</span>
+                            <span class="stat-label">Hours</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Now Playing Bar -->
+        <div class="now-playing-bar" id="now-playing-bar">
+            <div class="now-playing-info">
+                <img src="" alt="Song Cover" class="now-playing-cover" id="now-playing-cover">
+                <div class="now-playing-details">
+                    <h4 class="now-playing-title" id="now-playing-title">Not Playing</h4>
+                    <p class="now-playing-artist" id="now-playing-artist">Select a song</p>
                 </div>
             </div>
-            <div class="playlist-card">
-                <img src="https://github.com/shm0210/music-player-assets/raw/main/playlist2.jpg" alt="Playlist Cover" class="playlist-cover">
-                <div class="playlist-info">
-                    <div class="playlist-name">Workout Mix</div>
-                    <div class="playlist-count">8 songs</div>
-                    <button class="playlist-play">Play All</button>
+            <div class="now-playing-controls">
+                <button class="control-btn" id="prev-btn"><i class="fas fa-step-backward"></i></button>
+                <button class="control-btn play-btn" id="play-btn"><i class="fas fa-play"></i></button>
+                <button class="control-btn" id="next-btn"><i class="fas fa-step-forward"></i></button>
+            </div>
+            <div class="now-playing-progress">
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="time-display">
+                    <span id="current-time">0:00</span>
+                    <span id="duration">0:00</span>
                 </div>
             </div>
-            <div class="playlist-card">
-                <img src="https://github.com/shm0210/music-player-assets/raw/main/playlist3.jpg" alt="Playlist Cover" class="playlist-cover">
-                <div class="playlist-info">
-                    <div class="playlist-name">Focus Mode</div>
-                    <div class="playlist-count">10 songs</div>
-                    <button class="playlist-play">Play All</button>
-                </div>
-            </div>
-            <div class="playlist-card">
-                <img src="https://github.com/shm0210/music-player-assets/raw/main/playlist4.jpg" alt="Playlist Cover" class="playlist-cover">
-                <div class="playlist-info">
-                    <div class="playlist-name">Road Trip</div>
-                    <div class="playlist-count">15 songs</div>
-                    <button class="playlist-play">Play All</button>
-                </div>
-            </div>
+            <audio id="audio-player"></audio>
         </div>
-    </div>
 
-    <div class="page" id="profile">
-        <div class="profile-header">
-            <img src="https://i.ibb.co/84t4yncH/file-000000000a846230a59752a366af7442.png" class="profile-pic">
-            <div class="profile-name">SHUBHAM</div>
-            <div class="profile-bio">Music Lover & Developer</div>
-        </div>
-        
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-number">128</div>
-                <div class="stat-label">Songs</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">24</div>
-                <div class="stat-label">Playlists</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">1.2K</div>
-                <div class="stat-label">Followers</div>
-            </div>
-        </div>
-        
-        <footer>
-            <p>© 2023 Shubham's Music Player. All rights reserved.</p>
-            <p>Made with ❤️ by SHUBHAM</p>
-        </footer>
+        <!-- Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-page="home-page">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-btn" data-page="search-page">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </button>
+            <button class="nav-btn" data-page="playlist-page">
+                <i class="fas fa-list"></i>
+                <span>Playlists</span>
+            </button>
+            <button class="nav-btn" data-page="profile-page">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </button>
+        </nav>
     </div>
-
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <a href="#" class="nav-item active" data-page="home">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </a>
-        <a href="#" class="nav-item" data-page="search">
-            <i class="fas fa-search"></i>
-            <span>Search</span>
-        </a>
-        <a href="#" class="nav-item" data-page="playlists">
-            <i class="fas fa-list"></i>
-            <span>Playlists</span>
-        </a>
-        <a href="#" class="nav-item" data-page="profile">
-            <i class="fas fa-user"></i>
-            <span>Profile</span>
-        </a>
-    </div>
-
-    <!-- Music Player -->
-    <div class="player">
-        <img src="" alt="Song Cover" class="player-cover" id="playerCover">
-        <div class="player-info">
-            <div class="player-song" id="playerSong">No song selected</div>
-            <div class="player-artist" id="playerArtist">Artist</div>
-        </div>
-        <div class="player-controls">
-            <button class="control-btn" id="prevBtn"><i class="fas fa-step-backward"></i></button>
-            <button class="play-pause-btn" id="playPauseBtn"><i class="fas fa-play"></i></button>
-            <button class="control-btn" id="nextBtn"><i class="fas fa-step-forward"></i></button>
-        </div>
-    </div>
-
-    <!-- Audio Element -->
-    <audio id="audioPlayer"></audio>
 
     <script src="script.js"></script>
 </body>

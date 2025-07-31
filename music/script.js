@@ -1,218 +1,461 @@
-// Sample music data
-const songs = [
-    {
-        id: 1,
-        title: "Aankhon Mein Doob Jaane Ko",
-        artist: "THE 9TEEN",
-        cover: "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.jpg",
-        audio: "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.mp3"
-    },
-    {
-        id: 2,
-        title: "Save Your Tears",
-        artist: "The Weeknd",
-        cover: "#",
-        audio: "#"
-    },
-    {
-        id: 3,
-        title: "Stay",
-        artist: "The Kid LAROI, Justin Bieber",
-        cover: "#",
-        audio: "#"
-    },
-    {
-        id: 4,
-        title: "Levitating",
-        artist: "Dua Lipa",
-        cover: "#",
-        audio: "#"
-    },
-    {
-        id: 5,
-        title: "Don't Start Now",
-        artist: "Dua Lipa",
-        cover: "#",
-        audio: "#"
-    }
-];
-
 // DOM Elements
-const songListElement = document.getElementById('songList');
-const searchInput = document.getElementById('searchInput');
-const searchResultsElement = document.getElementById('searchResults');
-const audioPlayer = document.getElementById('audioPlayer');
-const playerCover = document.getElementById('playerCover');
-const playerSong = document.getElementById('playerSong');
-const playerArtist = document.getElementById('playerArtist');
-const playPauseBtn = document.getElementById('playPauseBtn');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const playerElement = document.querySelector('.player');
-const navItems = document.querySelectorAll('.nav-item');
-const pages = document.querySelectorAll('.page');
+const pages = {
+    home: document.getElementById('home-page'),
+    search: document.getElementById('search-page'),
+    playlist: document.getElementById('playlist-page'),
+    profile: document.getElementById('profile-page')
+};
 
-// Current song index
+const navButtons = document.querySelectorAll('.nav-btn');
+const themeToggle = document.getElementById('theme-toggle');
+const nowPlayingBar = document.getElementById('now-playing-bar');
+const nowPlayingBtn = document.getElementById('now-playing-btn');
+const audioPlayer = document.getElementById('audio-player');
+const playBtn = document.getElementById('play-btn');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const progressBar = document.getElementById('progress-bar');
+const progress = document.getElementById('progress');
+const currentTimeEl = document.getElementById('current-time');
+const durationEl = document.getElementById('duration');
+const nowPlayingTitle = document.getElementById('now-playing-title');
+const nowPlayingArtist = document.getElementById('now-playing-artist');
+const nowPlayingCover = document.getElementById('now-playing-cover');
+const searchInput = document.getElementById('search-input');
+const searchBtn = document.getElementById('search-btn');
+const searchResults = document.getElementById('search-results');
+const playlistsContainer = document.getElementById('playlists');
+const playlistSongsContainer = document.getElementById('playlist-songs-container');
+const allSongsContainer = document.getElementById('all-songs');
+const totalSongsEl = document.getElementById('total-songs');
+const totalPlaylistsEl = document.getElementById('total-playlists');
+const totalHoursEl = document.getElementById('total-hours');
+
+// App State
 let currentSongIndex = 0;
+let songs = [];
+let playlists = [];
+let currentPlaylist = null;
 let isPlaying = false;
+let isDarkMode = true;
 
 // Initialize the app
-function init() {
-    renderSongList();
+async function init() {
+    loadThemePreference();
     setupEventListeners();
+    await loadSongs();
+    createDefaultPlaylists();
+    renderAllSongs();
+    renderPlaylists();
+    updateProfileStats();
 }
 
-// Render song list
-function renderSongList() {
-    songListElement.innerHTML = '';
-    songs.forEach((song, index) => {
-        const songItem = document.createElement('div');
-        songItem.className = 'song-item';
-        songItem.innerHTML = `
-            <img src="${song.cover}" alt="${song.title}" class="song-cover">
-            <div class="song-info">
-                <div class="song-name">${song.title}</div>
-                <div class="song-artist">${song.artist}</div>
-            </div>
-            <button class="play-btn" data-index="${index}">
-                <i class="fas fa-play"></i>
-            </button>
-        `;
-        songListElement.appendChild(songItem);
-    });
+// Load songs from collection.json
+async function loadSongs() {
+    try {
+        const response = await fetch('collection.json');
+        const data = await response.json();
+        songs = data.songs.map((song, index) => ({ ...song, id: index + 1 }));
+        console.log(`${songs.length} songs loaded successfully`);
+    } catch (error) {
+        console.error('Error loading songs:', error);
+        // Fallback data if collection.json fails to load
+        songs = [
+            {
+                id: 1,
+                title: "Aankhon Mein Doob Jaane Ko",
+                artist: "THE 9TEEN",
+                cover: "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.jpg",
+                source: "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.mp3",
+                duration: 180
+            },
+            {
+                id: 2,
+                title: "Sample Song 2",
+                artist: "Sample Artist 2",
+                cover: "https://via.placeholder.com/150",
+                source: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                duration: 210
+            }
+        ];
+    }
+}
+
+// Create default playlists
+function createDefaultPlaylists() {
+    playlists = [
+        {
+            id: 1,
+            name: "Favorites",
+            cover: "https://via.placeholder.com/300/6c5ce7/ffffff?text=Favorites",
+            songs: [1, 2] // Using song IDs
+        },
+        {
+            id: 2,
+            name: "Workout Mix",
+            cover: "https://via.placeholder.com/300/00b894/ffffff?text=Workout",
+            songs: [1] // Using song IDs
+        },
+        {
+            id: 3,
+            name: "Chill Vibes",
+            cover: "https://via.placeholder.com/300/0984e3/ffffff?text=Chill",
+            songs: [2] // Using song IDs
+        },
+        {
+            id: 4,
+            name: "Road Trip",
+            cover: "https://via.placeholder.com/300/fdcb6e/ffffff?text=Trip",
+            songs: [1, 2] // Using song IDs
+        }
+    ];
 }
 
 // Setup event listeners
 function setupEventListeners() {
     // Navigation
-    navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
-            const pageId = item.getAttribute('data-page');
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const pageId = button.getAttribute('data-page');
+            switchPage(pageId);
             
-            // Update active nav item
-            navItems.forEach(navItem => navItem.classList.remove('active'));
-            item.classList.add('active');
-            
-            // Show corresponding page
-            pages.forEach(page => page.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+            // Update active state of nav buttons
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
         });
     });
-
-    // Play song when clicking play button
-    songListElement.addEventListener('click', (e) => {
-        const playBtn = e.target.closest('.play-btn');
-        if (playBtn) {
-            const index = parseInt(playBtn.getAttribute('data-index'));
-            playSong(index);
-        }
+    
+    // Theme toggle
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    // Now playing bar toggle
+    nowPlayingBtn.addEventListener('click', () => {
+        nowPlayingBar.classList.toggle('show');
     });
-
-    // Search functionality
-    searchInput.addEventListener('input', () => {
-        const searchTerm = searchInput.value.toLowerCase();
-        if (searchTerm.length > 0) {
-            const filteredSongs = songs.filter(song => 
-                song.title.toLowerCase().includes(searchTerm) || 
-                song.artist.toLowerCase().includes(searchTerm)
-            );
-            renderSearchResults(filteredSongs);
-        } else {
-            searchResultsElement.innerHTML = '';
-        }
-    });
-
+    
+    // Audio player events
+    audioPlayer.addEventListener('timeupdate', updateProgress);
+    audioPlayer.addEventListener('ended', nextSong);
+    audioPlayer.addEventListener('loadedmetadata', updateDuration);
+    
     // Player controls
-    playPauseBtn.addEventListener('click', togglePlayPause);
-    prevBtn.addEventListener('click', playPreviousSong);
-    nextBtn.addEventListener('click', playNextSong);
-
-    // When song ends, play next
-    audioPlayer.addEventListener('ended', playNextSong);
-
-    // Play playlist buttons
-    document.querySelectorAll('.playlist-play').forEach(btn => {
-        btn.addEventListener('click', () => {
-            playSong(0); // Play first song in the playlist
-        });
-    });
+    playBtn.addEventListener('click', togglePlay);
+    prevBtn.addEventListener('click', prevSong);
+    nextBtn.addEventListener('click', nextSong);
+    
+    // Progress bar click
+    progressBar.addEventListener('click', setProgress);
+    
+    // Search functionality
+    searchInput.addEventListener('input', debounce(handleSearch, 300));
+    searchBtn.addEventListener('click', handleSearch);
 }
 
-// Render search results
-function renderSearchResults(results) {
-    searchResultsElement.innerHTML = '';
-    if (results.length === 0) {
-        searchResultsElement.innerHTML = '<p>No results found</p>';
-        return;
-    }
+// Switch between pages
+function switchPage(pageId) {
+    Object.values(pages).forEach(page => page.classList.remove('active'));
+    pages[pageId.split('-')[0]].classList.add('active');
     
-    results.forEach((song, index) => {
-        const songItem = document.createElement('div');
-        songItem.className = 'song-item';
-        songItem.innerHTML = `
+    // Scroll to top when switching pages
+    window.scrollTo(0, 0);
+}
+
+// Toggle theme between dark/light
+function toggleTheme() {
+    isDarkMode = !isDarkMode;
+    document.body.classList.toggle('light-mode');
+    themeToggle.innerHTML = isDarkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    localStorage.setItem('darkMode', isDarkMode);
+}
+
+// Load theme preference from localStorage
+function loadThemePreference() {
+    const savedMode = localStorage.getItem('darkMode');
+    if (savedMode !== null) {
+        isDarkMode = savedMode === 'true';
+        if (!isDarkMode) {
+            document.body.classList.add('light-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+    }
+}
+
+// Render all songs in home page
+function renderAllSongs() {
+    allSongsContainer.innerHTML = '';
+    
+    songs.forEach(song => {
+        const songEl = document.createElement('div');
+        songEl.className = 'song-card';
+        songEl.innerHTML = `
             <img src="${song.cover}" alt="${song.title}" class="song-cover">
             <div class="song-info">
-                <div class="song-name">${song.title}</div>
-                <div class="song-artist">${song.artist}</div>
+                <h4 class="song-title">${song.title}</h4>
+                <p class="song-artist">${song.artist}</p>
             </div>
-            <button class="play-btn" data-index="${songs.findIndex(s => s.id === song.id)}">
+            <button class="song-play-btn" data-id="${song.id}">
                 <i class="fas fa-play"></i>
             </button>
         `;
-        searchResultsElement.appendChild(songItem);
+        allSongsContainer.appendChild(songEl);
+        
+        // Add click event to play song
+        songEl.querySelector('.song-play-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            playSong(song.id - 1);
+        });
+        
+        songEl.addEventListener('click', () => {
+            // Optional: Add to queue or show song details
+        });
     });
 }
 
-// Play a song
-function playSong(index) {
-    if (index >= 0 && index < songs.length) {
-        currentSongIndex = index;
-        const song = songs[currentSongIndex];
+// Render playlists
+function renderPlaylists() {
+    playlistsContainer.innerHTML = '';
+    
+    playlists.forEach(playlist => {
+        const playlistEl = document.createElement('div');
+        playlistEl.className = 'playlist-card';
+        playlistEl.innerHTML = `
+            <img src="${playlist.cover}" alt="${playlist.name}" class="playlist-cover">
+            <div class="playlist-info">
+                <h4 class="playlist-name">${playlist.name}</h4>
+                <p class="playlist-song-count">${playlist.songs.length} songs</p>
+                <button class="playlist-play-btn" data-id="${playlist.id}">
+                    <i class="fas fa-play"></i> Play All
+                </button>
+            </div>
+        `;
+        playlistsContainer.appendChild(playlistEl);
         
-        // Update player UI
-        playerCover.src = song.cover;
-        playerSong.textContent = song.title;
-        playerArtist.textContent = song.artist;
+        // Add click event to view playlist songs
+        playlistEl.addEventListener('click', () => viewPlaylistSongs(playlist.id));
+    });
+}
+
+// View songs in a playlist
+function viewPlaylistSongs(playlistId) {
+    const playlist = playlists.find(p => p.id === playlistId);
+    if (!playlist) return;
+    
+    currentPlaylist = playlist;
+    
+    // Hide playlists and show songs container
+    playlistsContainer.style.display = 'none';
+    playlistSongsContainer.style.display = 'block';
+    playlistSongsContainer.innerHTML = `
+        <div class="back-to-playlists">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Playlists</span>
+        </div>
+        <h3>${playlist.name}</h3>
+        <div class="songs-container" id="current-playlist-songs"></div>
+    `;
+    
+    // Add back button event
+    playlistSongsContainer.querySelector('.back-to-playlists').addEventListener('click', () => {
+        playlistsContainer.style.display = 'grid';
+        playlistSongsContainer.style.display = 'none';
+    });
+    
+    // Render playlist songs
+    const playlistSongsContainerInner = document.getElementById('current-playlist-songs');
+    playlistSongsContainerInner.innerHTML = '';
+    
+    playlist.songs.forEach(songId => {
+        const song = songs.find(s => s.id === songId);
+        if (!song) return;
         
-        // Set audio source and play
-        audioPlayer.src = song.audio;
-        audioPlayer.play();
-        isPlaying = true;
-        playerElement.classList.add('playing');
-        updatePlayPauseButton();
+        const songEl = document.createElement('div');
+        songEl.className = 'song-card';
+        songEl.innerHTML = `
+            <img src="${song.cover}" alt="${song.title}" class="song-cover">
+            <div class="song-info">
+                <h4 class="song-title">${song.title}</h4>
+                <p class="song-artist">${song.artist}</p>
+            </div>
+            <button class="song-play-btn" data-id="${song.id}">
+                <i class="fas fa-play"></i>
+            </button>
+        `;
+        playlistSongsContainerInner.appendChild(songEl);
+        
+        // Add click event to play song
+        songEl.querySelector('.song-play-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            playSong(song.id - 1);
+        });
+    });
+}
+
+// Handle search functionality
+function handleSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    if (!query) {
+        searchResults.innerHTML = '<p class="no-results">Start typing to search for songs</p>';
+        return;
     }
+    
+    const results = songs.filter(song => 
+        song.title.toLowerCase().includes(query) || 
+        song.artist.toLowerCase().includes(query)
+    );
+    
+    if (results.length === 0) {
+        searchResults.innerHTML = '<p class="no-results">No songs found. Try a different search term.</p>';
+        return;
+    }
+    
+    searchResults.innerHTML = `
+        <h4>Search Results (${results.length})</h4>
+        <div class="songs-container" id="search-songs"></div>
+    `;
+    
+    const searchSongsContainer = document.getElementById('search-songs');
+    results.forEach(song => {
+        const songEl = document.createElement('div');
+        songEl.className = 'song-card';
+        songEl.innerHTML = `
+            <img src="${song.cover}" alt="${song.title}" class="song-cover">
+            <div class="song-info">
+                <h4 class="song-title">${song.title}</h4>
+                <p class="song-artist">${song.artist}</p>
+            </div>
+            <button class="song-play-btn" data-id="${song.id}">
+                <i class="fas fa-play"></i>
+            </button>
+        `;
+        searchSongsContainer.appendChild(songEl);
+        
+        // Add click event to play song
+        songEl.querySelector('.song-play-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            playSong(song.id - 1);
+        });
+    });
+}
+
+// Play a song by index
+function playSong(index) {
+    if (index < 0 || index >= songs.length) return;
+    
+    currentSongIndex = index;
+    const song = songs[currentSongIndex];
+    
+    audioPlayer.src = song.source;
+    audioPlayer.play()
+        .then(() => {
+            isPlaying = true;
+            updateNowPlayingInfo();
+            updatePlayButton();
+            nowPlayingBar.classList.add('show');
+        })
+        .catch(error => {
+            console.error('Error playing song:', error);
+            // Fallback for browsers that might block autoplay
+            alert('Click the play button to start playback');
+        });
 }
 
 // Toggle play/pause
-function togglePlayPause() {
-    if (isPlaying) {
-        audioPlayer.pause();
+function togglePlay() {
+    if (audioPlayer.paused) {
+        audioPlayer.play()
+            .then(() => {
+                isPlaying = true;
+                updatePlayButton();
+            })
+            .catch(error => {
+                console.error('Error playing song:', error);
+            });
     } else {
-        audioPlayer.play();
+        audioPlayer.pause();
+        isPlaying = false;
+        updatePlayButton();
     }
-    isPlaying = !isPlaying;
-    playerElement.classList.toggle('playing', isPlaying);
-    updatePlayPauseButton();
-}
-
-// Play previous song
-function playPreviousSong() {
-    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-    playSong(currentSongIndex);
 }
 
 // Play next song
-function playNextSong() {
+function nextSong() {
     currentSongIndex = (currentSongIndex + 1) % songs.length;
     playSong(currentSongIndex);
 }
 
-// Update play/pause button icon
-function updatePlayPauseButton() {
-    const icon = isPlaying ? 'fa-pause' : 'fa-play';
-    playPauseBtn.innerHTML = `<i class="fas ${icon}"></i>`;
+// Play previous song
+function prevSong() {
+    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+    playSong(currentSongIndex);
 }
 
-// Initialize the app
-init();
+// Update progress bar
+function updateProgress() {
+    const { currentTime, duration } = audioPlayer;
+    const progressPercent = (currentTime / duration) * 100;
+    progress.style.width = `${progressPercent}%`;
+    
+    // Update time display
+    currentTimeEl.textContent = formatTime(currentTime);
+}
+
+// Set progress bar on click
+function setProgress(e) {
+    const width = this.clientWidth;
+    const clickX = e.offsetX;
+    const duration = audioPlayer.duration;
+    audioPlayer.currentTime = (clickX / width) * duration;
+}
+
+// Update duration display
+function updateDuration() {
+    durationEl.textContent = formatTime(audioPlayer.duration);
+}
+
+// Format time (seconds to MM:SS)
+function formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+// Update now playing info
+function updateNowPlayingInfo() {
+    const song = songs[currentSongIndex];
+    nowPlayingTitle.textContent = song.title;
+    nowPlayingArtist.textContent = song.artist;
+    nowPlayingCover.src = song.cover;
+}
+
+// Update play button icon
+function updatePlayButton() {
+    playBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+}
+
+// Update profile stats
+function updateProfileStats() {
+    totalSongsEl.textContent = songs.length;
+    totalPlaylistsEl.textContent = playlists.length;
+    
+    // Calculate total duration in hours
+    const totalMinutes = songs.reduce((sum, song) => sum + (song.duration || 180), 0) / 60;
+    totalHoursEl.textContent = Math.round(totalMinutes / 60);
+}
+
+// Debounce function for search
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(context, args);
+        }, wait);
+    };
+}
+
+// Initialize the app when DOM is loaded
+document.addEventListener('DOMContentLoaded', init);

@@ -1,0 +1,20 @@
+{
+    "songs": [
+        {
+            "id": 1,
+            "title": "Aankhon Mein Doob Jaane Ko",
+            "artist": "THE 9TEEN",
+            "cover": "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.jpg",
+            "source": "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.mp3",
+            "duration": 180
+        },
+        {
+            "id": 2,
+            "title": "Sample Song 2",
+            "artist": "Sample Artist 2",
+            "cover": "https://via.placeholder.com/150",
+            "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "duration": 210
+        }
+    ]
+}
