@@ -8,11 +8,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Theme Toggle -->
-    <div class="theme-toggle">
-        <i class="fas fa-moon" id="themeIcon"></i>
-    </div>
-
     <!-- Pages -->
     <div class="page active" id="home">
         <h1>Your Library</h1>
@@ -32,18 +27,39 @@
 
     <div class="page" id="playlists">
         <h1>Your Playlists</h1>
-        <div class="playlist-grid" id="playlistGrid">
-            <!-- Playlists will be added here dynamically -->
-        </div>
-    </div>
-
-    <div class="page" id="playlist-detail" style="display: none;">
-        <div class="playlist-header">
-            <button class="back-btn" id="backToPlaylists"><i class="fas fa-arrow-left"></i> Back</button>
-            <h1 id="playlistDetailTitle">Playlist</h1>
-        </div>
-        <div class="playlist-songs" id="playlistSongs">
-            <!-- Playlist songs will be added here dynamically -->
+        <div class="playlist-grid">
+            <div class="playlist-card">
+                <img src="https://github.com/shm0210/music-player-assets/raw/main/playlist1.jpg" alt="Playlist Cover" class="playlist-cover">
+                <div class="playlist-info">
+                    <div class="playlist-name">Chill Vibes</div>
+                    <div class="playlist-count">12 songs</div>
+                    <button class="playlist-play">Play All</button>
+                </div>
+            </div>
+            <div class="playlist-card">
+                <img src="https://github.com/shm0210/music-player-assets/raw/main/playlist2.jpg" alt="Playlist Cover" class="playlist-cover">
+                <div class="playlist-info">
+                    <div class="playlist-name">Workout Mix</div>
+                    <div class="playlist-count">8 songs</div>
+                    <button class="playlist-play">Play All</button>
+                </div>
+            </div>
+            <div class="playlist-card">
+                <img src="https://github.com/shm0210/music-player-assets/raw/main/playlist3.jpg" alt="Playlist Cover" class="playlist-cover">
+                <div class="playlist-info">
+                    <div class="playlist-name">Focus Mode</div>
+                    <div class="playlist-count">10 songs</div>
+                    <button class="playlist-play">Play All</button>
+                </div>
+            </div>
+            <div class="playlist-card">
+                <img src="https://github.com/shm0210/music-player-assets/raw/main/playlist4.jpg" alt="Playlist Cover" class="playlist-cover">
+                <div class="playlist-info">
+                    <div class="playlist-name">Road Trip</div>
+                    <div class="playlist-count">15 songs</div>
+                    <button class="playlist-play">Play All</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -97,37 +113,15 @@
 
     <!-- Music Player -->
     <div class="player">
-        <div class="player-minimized">
-            <img src="" alt="Song Cover" class="mini-player-cover" id="miniPlayerCover">
-            <div class="mini-player-info">
-                <div class="mini-player-song" id="miniPlayerSong">No song selected</div>
-                <div class="mini-player-artist" id="miniPlayerArtist">Artist</div>
-            </div>
-            <div class="mini-player-controls">
-                <button class="mini-control-btn" id="miniPlayPauseBtn"><i class="fas fa-play"></i></button>
-                <button class="mini-control-btn" id="miniNextBtn"><i class="fas fa-step-forward"></i></button>
-            </div>
+        <img src="" alt="Song Cover" class="player-cover" id="playerCover">
+        <div class="player-info">
+            <div class="player-song" id="playerSong">No song selected</div>
+            <div class="player-artist" id="playerArtist">Artist</div>
         </div>
-        
-        <div class="player-expanded">
-            <img src="" alt="Song Cover" class="player-cover" id="playerCover">
-            <div class="player-info">
-                <div class="player-song" id="playerSong">No song selected</div>
-                <div class="player-artist" id="playerArtist">Artist</div>
-                <div class="progress-container">
-                    <div class="progress-bar" id="progressBar"></div>
-                    <div class="time-info">
-                        <span id="currentTime">0:00</span>
-                        <span id="duration">0:00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="player-controls">
-                <button class="control-btn" id="prevBtn"><i class="fas fa-step-backward"></i></button>
-                <button class="play-pause-btn" id="playPauseBtn"><i class="fas fa-play"></i></button>
-                <button class="control-btn" id="nextBtn"><i class="fas fa-step-forward"></i></button>
-            </div>
-            <button class="minimize-btn" id="minimizeBtn"><i class="fas fa-chevron-down"></i></button>
+        <div class="player-controls">
+            <button class="control-btn" id="prevBtn"><i class="fas fa-step-backward"></i></button>
+            <button class="play-pause-btn" id="playPauseBtn"><i class="fas fa-play"></i></button>
+            <button class="control-btn" id="nextBtn"><i class="fas fa-step-forward"></i></button>
         </div>
     </div>
 
