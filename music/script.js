@@ -43,23 +43,48 @@ let isDarkMode = true;
 async function init() {
     loadThemePreference();
     setupEventListeners();
-    await loadSongs();
-    createDefaultPlaylists();
-    renderAllSongs();
-    renderPlaylists();
-    updateProfileStats();
+    try {
+        await loadSongs();
+        createDefaultPlaylists();
+        renderAllSongs();
+        renderPlaylists();
+        updateProfileStats();
+    } catch (error) {
+        console.error('Error initializing app:', error);
+        showError("Unable to load music library. Please check your internet connection or try again later.");
+    }
+}
+
+// Show error message to user
+function showError(message) {
+    const errorEl = document.createElement('div');
+    errorEl.className = 'error-message';
+    errorEl.innerHTML = `
+        <i class="fas fa-exclamation-circle"></i>
+        <span>${message}</span>
+    `;
+    document.body.prepend(errorEl);
+    
+    // Remove after 5 seconds
+    setTimeout(() => {
+        errorEl.remove();
+    }, 5000);
 }
 
 // Load songs from collection.json
 async function loadSongs() {
     try {
         const response = await fetch('collection.json');
+        if (!response.ok) {
+            throw new Error('Failed to fetch songs');
+        }
         const data = await response.json();
         songs = data.songs.map((song, index) => ({ ...song, id: index + 1 }));
         console.log(`${songs.length} songs loaded successfully`);
     } catch (error) {
         console.error('Error loading songs:', error);
-        // Fallback data if collection.json fails to load
+        showError("Failed to load songs. Using limited offline collection.");
+        // Fallback to basic songs
         songs = [
             {
                 id: 1,
@@ -78,14 +103,6 @@ async function loadSongs() {
                 duration: 210
             },
             {
-            "id": 3,
-            "title": "O Meri Laila",
-            "artist": "Atif Aslam, Jyotica Tangri",
-            "cover": "https://github.com/shm0210/music-player-assets/raw/76862ba1f700d99c392112f41a7b26993eb76164/O%20Meri%20Laila%20-%20Atif%20Aslam_%20Jyotica%20Tangri.jpg",
-            "source": "https://github.com/shm0210/music-player-assets/raw/76862ba1f700d99c392112f41a7b26993eb76164/O%20Meri%20Laila%20-%20Atif%20Aslam_%20Jyotica%20Tangri.mp3",
-            "duration": 210
-        },
-        {
             "id": 3,
             "title": "O Meri Laila",
             "artist": "Atif Aslam, Jyotica Tangri",
@@ -240,25 +257,25 @@ function createDefaultPlaylists() {
             id: 1,
             name: "Favorites",
             cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
-            songs: [1, 2, 3, 4, 5] // Using song IDs
+            songs: [1, 2, 3, 4, 5]
         },
         {
             id: 2,
             name: "Spritual",
             cover: "https://mosaic.scdn.co/640/ab67616d00001e021592fefed668233b3d38fa0eab67616d00001e023874cc361eca103f5dd69286ab67616d00001e02759b1cd31a392ad7a5fb1e9aab67616d00001e02790d4c884ca491d8562156a2",
-            songs: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] // Using song IDs
+            songs: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
         },
         {
             id: 3,
             name: "Chill Vibes",
             cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
-            songs: [2] // Using song IDs
+            songs: [2]
         },
         {
             id: 4,
             name: "Road Trip",
             cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
-            songs: [1, 2] // Using song IDs
+            songs: [1, 2]
         }
     ];
 }
@@ -336,25 +353,29 @@ function loadThemePreference() {
 function renderAllSongs() {
     allSongsContainer.innerHTML = '';
     
-    songs.forEach(song => {
+    songs.forEach((song, index) => {
         const songEl = document.createElement('div');
-        songEl.className = 'song-card';
+        songEl.className = `song-card ${index === currentSongIndex && isPlaying ? 'playing' : ''}`;
         songEl.innerHTML = `
-            <img src="${song.cover}" alt="${song.title}" class="song-cover">
+            <img src="${song.cover}" alt="${song.title}" class="song-cover" loading="lazy">
             <div class="song-info">
                 <h4 class="song-title">${song.title}</h4>
                 <p class="song-artist">${song.artist}</p>
             </div>
             <button class="song-play-btn" data-id="${song.id}">
-                <i class="fas fa-play"></i>
+                <i class="fas ${index === currentSongIndex && isPlaying ? 'fa-pause' : 'fa-play'}"></i>
             </button>
         `;
         allSongsContainer.appendChild(songEl);
         
-        // Add click event to play song
+        // Add click event to play/pause song
         songEl.querySelector('.song-play-btn').addEventListener('click', (e) => {
             e.stopPropagation();
-            playSong(song.id - 1);
+            if (index === currentSongIndex && isPlaying) {
+                togglePlay();
+            } else {
+                playSong(index);
+            }
         });
         
         songEl.addEventListener('click', () => {
@@ -371,7 +392,7 @@ function renderPlaylists() {
         const playlistEl = document.createElement('div');
         playlistEl.className = 'playlist-card';
         playlistEl.innerHTML = `
-            <img src="${playlist.cover}" alt="${playlist.name}" class="playlist-cover">
+            <img src="${playlist.cover}" alt="${playlist.name}" class="playlist-cover" loading="lazy">
             <div class="playlist-info">
                 <h4 class="playlist-name">${playlist.name}</h4>
                 <p class="playlist-song-count">${playlist.songs.length} songs</p>
@@ -383,8 +404,33 @@ function renderPlaylists() {
         playlistsContainer.appendChild(playlistEl);
         
         // Add click event to view playlist songs
-        playlistEl.addEventListener('click', () => viewPlaylistSongs(playlist.id));
+        playlistEl.addEventListener('click', (e) => {
+            if (!e.target.closest('.playlist-play-btn')) {
+                viewPlaylistSongs(playlist.id);
+            }
+        });
+        
+        // Add click event to play all songs in playlist
+        playlistEl.querySelector('.playlist-play-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            playPlaylist(playlist.id);
+        });
     });
+}
+
+// Play all songs in a playlist
+function playPlaylist(playlistId) {
+    const playlist = playlists.find(p => p.id === playlistId);
+    if (!playlist || playlist.songs.length === 0) return;
+    
+    // Find the index of the first song in the playlist
+    const firstSongId = playlist.songs[0];
+    const firstSongIndex = songs.findIndex(s => s.id === firstSongId);
+    
+    if (firstSongIndex !== -1) {
+        currentPlaylist = playlist;
+        playSong(firstSongIndex);
+    }
 }
 
 // View songs in a playlist
@@ -417,27 +463,32 @@ function viewPlaylistSongs(playlistId) {
     playlistSongsContainerInner.innerHTML = '';
     
     playlist.songs.forEach(songId => {
-        const song = songs.find(s => s.id === songId);
-        if (!song) return;
+        const songIndex = songs.findIndex(s => s.id === songId);
+        if (songIndex === -1) return;
+        const song = songs[songIndex];
         
         const songEl = document.createElement('div');
-        songEl.className = 'song-card';
+        songEl.className = `song-card ${songIndex === currentSongIndex && isPlaying ? 'playing' : ''}`;
         songEl.innerHTML = `
-            <img src="${song.cover}" alt="${song.title}" class="song-cover">
+            <img src="${song.cover}" alt="${song.title}" class="song-cover" loading="lazy">
             <div class="song-info">
                 <h4 class="song-title">${song.title}</h4>
                 <p class="song-artist">${song.artist}</p>
             </div>
             <button class="song-play-btn" data-id="${song.id}">
-                <i class="fas fa-play"></i>
+                <i class="fas ${songIndex === currentSongIndex && isPlaying ? 'fa-pause' : 'fa-play'}"></i>
             </button>
         `;
         playlistSongsContainerInner.appendChild(songEl);
         
-        // Add click event to play song
+        // Add click event to play/pause song
         songEl.querySelector('.song-play-btn').addEventListener('click', (e) => {
             e.stopPropagation();
-            playSong(song.id - 1);
+            if (songIndex === currentSongIndex && isPlaying) {
+                togglePlay();
+            } else {
+                playSong(songIndex);
+            }
         });
     });
 }
@@ -466,25 +517,30 @@ function handleSearch() {
     `;
     
     const searchSongsContainer = document.getElementById('search-songs');
-    results.forEach(song => {
+    results.forEach((song, index) => {
         const songEl = document.createElement('div');
-        songEl.className = 'song-card';
+        songEl.className = `song-card ${index === currentSongIndex && isPlaying ? 'playing' : ''}`;
         songEl.innerHTML = `
-            <img src="${song.cover}" alt="${song.title}" class="song-cover">
+            <img src="${song.cover}" alt="${song.title}" class="song-cover" loading="lazy">
             <div class="song-info">
                 <h4 class="song-title">${song.title}</h4>
                 <p class="song-artist">${song.artist}</p>
             </div>
             <button class="song-play-btn" data-id="${song.id}">
-                <i class="fas fa-play"></i>
+                <i class="fas ${index === currentSongIndex && isPlaying ? 'fa-pause' : 'fa-play'}"></i>
             </button>
         `;
         searchSongsContainer.appendChild(songEl);
         
-        // Add click event to play song
+        // Add click event to play/pause song
         songEl.querySelector('.song-play-btn').addEventListener('click', (e) => {
             e.stopPropagation();
-            playSong(song.id - 1);
+            const songIndex = songs.findIndex(s => s.id === song.id);
+            if (songIndex === currentSongIndex && isPlaying) {
+                togglePlay();
+            } else {
+                playSong(songIndex);
+            }
         });
     });
 }
@@ -492,6 +548,12 @@ function handleSearch() {
 // Play a song by index
 function playSong(index) {
     if (index < 0 || index >= songs.length) return;
+    
+    // If same song is playing, just toggle play/pause
+    if (index === currentSongIndex && isPlaying) {
+        togglePlay();
+        return;
+    }
     
     currentSongIndex = index;
     const song = songs[currentSongIndex];
@@ -502,13 +564,31 @@ function playSong(index) {
             isPlaying = true;
             updateNowPlayingInfo();
             updatePlayButton();
+            updatePlayingStates();
             nowPlayingBar.classList.add('show');
         })
         .catch(error => {
             console.error('Error playing song:', error);
-            // Fallback for browsers that might block autoplay
-            alert('Click the play button to start playback');
+            showError("Couldn't play song. Click the play button to start playback.");
         });
+}
+
+// Update all playing states (UI indicators)
+function updatePlayingStates() {
+    // Update all song cards
+    document.querySelectorAll('.song-card').forEach(card => {
+        card.classList.remove('playing');
+    });
+    
+    // Update current song card
+    const currentSongCards = document.querySelectorAll(`.song-card button[data-id="${songs[currentSongIndex].id}"]`);
+    currentSongCards.forEach(btn => {
+        const card = btn.closest('.song-card');
+        if (card) {
+            card.classList.toggle('playing', isPlaying);
+            btn.innerHTML = `<i class="fas ${isPlaying ? 'fa-pause' : 'fa-play'}"></i>`;
+        }
+    });
 }
 
 // Toggle play/pause
@@ -518,25 +598,58 @@ function togglePlay() {
             .then(() => {
                 isPlaying = true;
                 updatePlayButton();
+                updatePlayingStates();
             })
             .catch(error => {
                 console.error('Error playing song:', error);
+                showError("Couldn't play song. Please try again.");
             });
     } else {
         audioPlayer.pause();
         isPlaying = false;
         updatePlayButton();
+        updatePlayingStates();
     }
 }
 
 // Play next song
 function nextSong() {
+    if (currentPlaylist) {
+        // Find next song in current playlist
+        const currentSongId = songs[currentSongIndex].id;
+        const currentIndexInPlaylist = currentPlaylist.songs.indexOf(currentSongId);
+        if (currentIndexInPlaylist !== -1 && currentIndexInPlaylist < currentPlaylist.songs.length - 1) {
+            const nextSongId = currentPlaylist.songs[currentIndexInPlaylist + 1];
+            const nextSongIndex = songs.findIndex(s => s.id === nextSongId);
+            if (nextSongIndex !== -1) {
+                playSong(nextSongIndex);
+                return;
+            }
+        }
+    }
+    
+    // Default to next song in all songs
     currentSongIndex = (currentSongIndex + 1) % songs.length;
     playSong(currentSongIndex);
 }
 
 // Play previous song
 function prevSong() {
+    if (currentPlaylist) {
+        // Find previous song in current playlist
+        const currentSongId = songs[currentSongIndex].id;
+        const currentIndexInPlaylist = currentPlaylist.songs.indexOf(currentSongId);
+        if (currentIndexInPlaylist > 0) {
+            const prevSongId = currentPlaylist.songs[currentIndexInPlaylist - 1];
+            const prevSongIndex = songs.findIndex(s => s.id === prevSongId);
+            if (prevSongIndex !== -1) {
+                playSong(prevSongIndex);
+                return;
+            }
+        }
+    }
+    
+    // Default to previous song in all songs
     currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
     playSong(currentSongIndex);
 }

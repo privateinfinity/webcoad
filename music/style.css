@@ -112,6 +112,58 @@ body {
         height: 30px;
     }
 }
+/* Add these to your existing style.css */
+.error-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--danger-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+.song-card.playing {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.song-card.playing .song-artist {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.song-card.playing .song-play-btn {
+    background-color: white;
+    color: var(--primary-color);
+}
+
+/* Add loading="lazy" to all images */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
+}
 
 /* Main Content Styles */
 .main-content {
