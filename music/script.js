@@ -110,13 +110,125 @@ async function loadSongs() {
             "duration": 210
         },
         {
-            "id": 6,
-            "title": "Coming Soon",
-            "artist": "Shubham, Music Production",
-            "cover": "https://example.jpg",
-            "source": "https://example.mp3",
-            "duration": 210
-        }
+  "id": 6,
+  "title": "Aadi Anant Shiva",
+  "artist": "Aditya Sharma",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/74c274681673424c1dd3137a7a7d75af9d27c39c/Aadi%20Anant%20Shiva%20-%20Aditya%20Sharma.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/74c274681673424c1dd3137a7a7d75af9d27c39c/Aadi%20Anant%20Shiva%20-%20Aditya%20Sharma.mp3",
+  "duration": 210
+},
+{
+  "id": 7,
+  "title": "Bajrang Baan-Lofi",
+  "artist": "Rasraj Ji Maharaj",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/8d63418d0c73a8610e2b7a27ad3e8a971325fdc1/Bajrang%20Baan-Lofi%20-%20Rasraj%20Ji%20Maharaj.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/8d63418d0c73a8610e2b7a27ad3e8a971325fdc1/Bajrang%20Baan-Lofi%20-%20Rasraj%20Ji%20Maharaj.mp3",
+  "duration": 210
+},
+{
+  "id": 8,
+  "title": "Bhole Charaniy Aaradhna",
+  "artist": "Muktidan Gadhvi",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/8d63418d0c73a8610e2b7a27ad3e8a971325fdc1/Bhole%20Charaniy%20Aaradhna%20-%20Muktidan%20Gadhvi.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/8d63418d0c73a8610e2b7a27ad3e8a971325fdc1/Bhole%20Charaniy%20Aaradhna%20-%20Muktidan%20Gadhvi.mp3",
+  "duration": 210
+},
+{
+  "id": 9,
+  "title": "Deva Shree Ganesha",
+  "artist": "Ajay-Atul / Ajay Gogavale",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/8d63418d0c73a8610e2b7a27ad3e8a971325fdc1/Deva%20Shree%20Ganesha%20-%20Ajay-Atul_%20Ajay%20Gogavale.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/8d63418d0c73a8610e2b7a27ad3e8a971325fdc1/Deva%20Shree%20Ganesha%20-%20Ajay-Atul_%20Ajay%20Gogavale.mp3",
+  "duration": 210
+},
+{
+  "id": 10,
+  "title": "Hanuman Chalisa (Lo-fi)",
+  "artist": "Rasraj Ji Maharaj",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/8d63418d0c73a8610e2b7a27ad3e8a971325fdc1/Hanuman%20Chalisa%20_Lo-fi_%20-%20Rasraj%20Ji%20Maharaj.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/8d63418d0c73a8610e2b7a27ad3e8a971325fdc1/Hanuman%20Chalisa%20_Lo-fi_%20-%20Rasraj%20Ji%20Maharaj.mp3",
+  "duration": 210
+},
+{
+  "id": 11,
+  "title": "Namami Shamishan",
+  "artist": "Religious India",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/2500704cf4dc59a636ebb418a4a20c485bea09fb/Namami%20Shamishan%20-%20Religious%20India.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/2500704cf4dc59a636ebb418a4a20c485bea09fb/Namami%20Shamishan%20-%20Religious%20India.mp3",
+  "duration": 210
+},
+{
+  "id": 12,
+  "title": "Nandi Ki Sawari Naag Angikaar Dhari",
+  "artist": "Harindu",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/2500704cf4dc59a636ebb418a4a20c485bea09fb/Nandi%20Ki%20Sawari%20Naag%20Angikaar%20Dhari%20-%20Harindu.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/2500704cf4dc59a636ebb418a4a20c485bea09fb/Nandi%20Ki%20Sawari%20Naag%20Angikaar%20Dhari%20-%20Harindu.mp3",
+  "duration": 210
+},
+{
+  "id": 13,
+  "title": "Nirvana Shatakam",
+  "artist": "Religious India",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/66e3b8f6998fcc30797536abf7d0516cec4423c5/Nirvana%20Shatakam%20-%20Religious%20India.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/66e3b8f6998fcc30797536abf7d0516cec4423c5/Nirvana%20Shatakam%20-%20Religious%20India.mp3",
+  "duration": 210
+},
+{
+  "id": 14,
+  "title": "Shiv Kailash (Live in Mumbai)",
+  "artist": "Rishab Rikhiram Sharma",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/66e3b8f6998fcc30797536abf7d0516cec4423c5/Shiv%20Kailash%20_Live%20in%20Mumbai_%20-%20Rishab%20Rikhiram%20Sharma.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/66e3b8f6998fcc30797536abf7d0516cec4423c5/Shiv%20Kailash%20_Live%20in%20Mumbai_%20-%20Rishab%20Rikhiram%20Sharma.mp3",
+  "duration": 210
+},
+{
+  "id": 15,
+  "title": "Shiv Panchakshar Stotra",
+  "artist": "Religious India",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/7b5644797c3433d1f9fd123771989687f4f7b132/Shiv%20Panchakshar%20Stotra%20-%20Religious%20India.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/7b5644797c3433d1f9fd123771989687f4f7b132/Shiv%20Panchakshar%20Stotra%20-%20Religious%20India.mp3",
+  "duration": 210
+},
+{
+  "id": 16,
+  "title": "Shiv Stuti",
+  "artist": "Religious India",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/7b5644797c3433d1f9fd123771989687f4f7b132/Shiv%20Stuti%20-%20Religious%20India.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/7b5644797c3433d1f9fd123771989687f4f7b132/Shiv%20Stuti%20-%20Religious%20India.mp3",
+  "duration": 210
+},
+{
+  "id": 17,
+  "title": "Shiv Tandav Stotram",
+  "artist": "Shankar Mahadevan",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/f52ec909475129ded814f7df16e7adb44c129fad/Shiv%20Tandav%20Stotram%20-%20Shankar%20Mahadevan.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/f52ec909475129ded814f7df16e7adb44c129fad/Shiv%20Tandav%20Stotram%20-%20Shankar%20Mahadevan.mp3",
+  "duration": 210
+},
+{
+  "id": 18,
+  "title": "Shree Hari Stotram",
+  "artist": "G. Gayathri Devi, Saindhavi, PRIYA, R. Shruti",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/f52ec909475129ded814f7df16e7adb44c129fad/Shree%20Hari%20Stotram%20-%20G.%20Gayathri%20Devi_%20Saindhavi_%20PRIYA_%20R.%20Shruti.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/f52ec909475129ded814f7df16e7adb44c129fad/Shree%20Hari%20Stotram%20-%20G.%20Gayathri%20Devi_%20Saindhavi_%20PRIYA_%20R.%20Shruti.mp3",
+  "duration": 210
+},
+{
+  "id": 19,
+  "title": "Sri Shiv Rudrastkam",
+  "artist": "Mrityunjay Hirmeth",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/0d6edfb9b5708f8f9e1bc6029fa3245ed7a3086f/Sri%20Shiv%20Rudrastkam%20-%20Mrityunjay%20Hirmeth.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/0d6edfb9b5708f8f9e1bc6029fa3245ed7a3086f/Sri%20Shiv%20Rudrastkam%20-%20Mrityunjay%20Hirmeth.mp3",
+  "duration": 210
+},
+{
+  "id": 20,
+  "title": "लं गण षटकम",
+  "artist": "Harindu",
+  "cover": "https://github.com/shm0210/music-player-assets/raw/0d6edfb9b5708f8f9e1bc6029fa3245ed7a3086f/%E0%A4%B2_%E0%A4%82_%E0%A4%97_%E0%A4%B7_%E0%A4%9F%E0%A4%95%E0%A4%AE_%20-%20Harindu.jpg",
+  "source": "https://github.com/shm0210/music-player-assets/raw/0d6edfb9b5708f8f9e1bc6029fa3245ed7a3086f/%E0%A4%B2_%E0%A4%82_%E0%A4%97_%E0%A4%B7_%E0%A4%9F%E0%A4%95%E0%A4%AE_%20-%20Harindu.mp3",
+  "duration": 210
+}
         ];
     }
 }
@@ -132,8 +244,8 @@ function createDefaultPlaylists() {
         },
         {
             id: 2,
-            name: "Workout Mix",
-            cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
+            name: "Spritual",
+            cover: "https://mosaic.scdn.co/640/ab67616d00001e021592fefed668233b3d38fa0eab67616d00001e023874cc361eca103f5dd69286ab67616d00001e02759b1cd31a392ad7a5fb1e9aab67616d00001e02790d4c884ca491d8562156a2",
             songs: [1] // Using song IDs
         },
         {
