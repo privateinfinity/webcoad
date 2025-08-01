@@ -76,7 +76,7 @@ async function loadSongs() {
                 cover: "https://github.com/shm0210/music-player-assets/raw/142ef74720d4bb04b540aa906980d1488fe8d5a6/Do%20Pal%20-%20ABRK.jpg",
                 source: "https://github.com/shm0210/music-player-assets/raw/142ef74720d4bb04b540aa906980d1488fe8d5a6/Do%20Pal%20-%20ABRK.mp3",
                 duration: 210
-            }
+            },
             {
             "id": 3,
             "title": "O Meri Laila",
