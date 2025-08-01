@@ -23,6 +23,30 @@
             "cover": "https://github.com/shm0210/music-player-assets/raw/76862ba1f700d99c392112f41a7b26993eb76164/O%20Meri%20Laila%20-%20Atif%20Aslam_%20Jyotica%20Tangri.jpg",
             "source": "https://github.com/shm0210/music-player-assets/raw/76862ba1f700d99c392112f41a7b26993eb76164/O%20Meri%20Laila%20-%20Atif%20Aslam_%20Jyotica%20Tangri.mp3",
             "duration": 210
+        },
+        {
+            "id": 4,
+            "title": "Suniyan Suniyan",
+            "artist": "Juss, MixSingh",
+            "cover": "https://github.com/shm0210/music-player-assets/raw/fbb717c4ef835be38bd6ad11b28162968d39b591/Suniyan%20Suniyan%20-%20Juss_%20MixSingh.jpg",
+            "source": "https://github.com/shm0210/music-player-assets/raw/fbb717c4ef835be38bd6ad11b28162968d39b591/Suniyan%20Suniyan%20-%20Juss_%20MixSingh.mp3",
+            "duration": 210
+        },
+        {
+            "id": 5,
+            "title": "Long time no see",
+            "artist": "Taimour Baig, Raffey Anwar, AUR",
+            "cover": "https://github.com/shm0210/music-player-assets/raw/fbb717c4ef835be38bd6ad11b28162968d39b591/Long%20time%20no%20see%20-%20Taimour%20Baig_%20Raffey%20Anwar_%20AUR.jpg",
+            "source": "https://github.com/shm0210/music-player-assets/raw/fbb717c4ef835be38bd6ad11b28162968d39b591/Long%20time%20no%20see%20-%20Taimour%20Baig_%20Raffey%20Anwar_%20AUR.mp3",
+            "duration": 210
+        },
+        {
+            "id": 6,
+            "title": "Coming Soon",
+            "artist": "Shubham, Music Production",
+            "cover": "https://example.jpg",
+            "source": "https://example.mp3",
+            "duration": 210
         }
     ]
 }

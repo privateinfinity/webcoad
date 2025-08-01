@@ -84,6 +84,38 @@ async function loadSongs() {
             "cover": "https://github.com/shm0210/music-player-assets/raw/76862ba1f700d99c392112f41a7b26993eb76164/O%20Meri%20Laila%20-%20Atif%20Aslam_%20Jyotica%20Tangri.jpg",
             "source": "https://github.com/shm0210/music-player-assets/raw/76862ba1f700d99c392112f41a7b26993eb76164/O%20Meri%20Laila%20-%20Atif%20Aslam_%20Jyotica%20Tangri.mp3",
             "duration": 210
+        },
+        {
+            "id": 3,
+            "title": "O Meri Laila",
+            "artist": "Atif Aslam, Jyotica Tangri",
+            "cover": "https://github.com/shm0210/music-player-assets/raw/76862ba1f700d99c392112f41a7b26993eb76164/O%20Meri%20Laila%20-%20Atif%20Aslam_%20Jyotica%20Tangri.jpg",
+            "source": "https://github.com/shm0210/music-player-assets/raw/76862ba1f700d99c392112f41a7b26993eb76164/O%20Meri%20Laila%20-%20Atif%20Aslam_%20Jyotica%20Tangri.mp3",
+            "duration": 210
+        },
+        {
+            "id": 4,
+            "title": "Suniyan Suniyan",
+            "artist": "Juss, MixSingh",
+            "cover": "https://github.com/shm0210/music-player-assets/raw/fbb717c4ef835be38bd6ad11b28162968d39b591/Suniyan%20Suniyan%20-%20Juss_%20MixSingh.jpg",
+            "source": "https://github.com/shm0210/music-player-assets/raw/fbb717c4ef835be38bd6ad11b28162968d39b591/Suniyan%20Suniyan%20-%20Juss_%20MixSingh.mp3",
+            "duration": 210
+        },
+        {
+            "id": 5,
+            "title": "Long time no see",
+            "artist": "Taimour Baig, Raffey Anwar, AUR",
+            "cover": "https://github.com/shm0210/music-player-assets/raw/fbb717c4ef835be38bd6ad11b28162968d39b591/Long%20time%20no%20see%20-%20Taimour%20Baig_%20Raffey%20Anwar_%20AUR.jpg",
+            "source": "https://github.com/shm0210/music-player-assets/raw/fbb717c4ef835be38bd6ad11b28162968d39b591/Long%20time%20no%20see%20-%20Taimour%20Baig_%20Raffey%20Anwar_%20AUR.mp3",
+            "duration": 210
+        },
+        {
+            "id": 6,
+            "title": "Coming Soon",
+            "artist": "Shubham, Music Production",
+            "cover": "https://example.jpg",
+            "source": "https://example.mp3",
+            "duration": 210
         }
         ];
     }
@@ -96,7 +128,7 @@ function createDefaultPlaylists() {
             id: 1,
             name: "Favorites",
             cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
-            songs: [1, 2, 3] // Using song IDs
+            songs: [1, 2, 3, 4, 5] // Using song IDs
         },
         {
             id: 2,
