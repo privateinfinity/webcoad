@@ -246,7 +246,7 @@ function createDefaultPlaylists() {
             id: 2,
             name: "Spritual",
             cover: "https://mosaic.scdn.co/640/ab67616d00001e021592fefed668233b3d38fa0eab67616d00001e023874cc361eca103f5dd69286ab67616d00001e02759b1cd31a392ad7a5fb1e9aab67616d00001e02790d4c884ca491d8562156a2",
-            songs: [1] // Using song IDs
+            songs: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] // Using song IDs
         },
         {
             id: 3,
