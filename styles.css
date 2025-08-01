@@ -1,4 +1,4 @@
-/* styles.css */
+/* styles.css - Optimized version */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 body {
@@ -7,15 +7,15 @@ body {
 }
 
 .app-card {
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.3s ease;
   transform: translateY(0) scale(1);
   position: relative;
   overflow: hidden;
 }
 
 .app-card:hover {
-  box-shadow: 0 20px 25px -5px rgba(14, 165, 233, 0.1), 0 10px 10px -5px rgba(14, 165, 233, 0.04);
-  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.1), 0 4px 6px -2px rgba(14, 165, 233, 0.05);
+  transform: translateY(-4px) scale(1.01);
 }
 
 .app-card::before {
@@ -27,7 +27,7 @@ body {
   height: 100%;
   background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
   z-index: -1;
 }
 
@@ -40,7 +40,7 @@ body {
   min-height: 40px;
   position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .download-btn::after {
@@ -52,7 +52,7 @@ body {
   height: 100%;
   background: rgba(255, 255, 255, 0.1);
   transform: translateX(-100%) skewX(-15deg);
-  transition: transform 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
 .download-btn:hover::after {
@@ -61,12 +61,12 @@ body {
 
 @media (max-width: 640px) {
   .hero-section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
   
   .app-card {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -74,13 +74,6 @@ body {
 button:focus, a:focus, input:focus, select:focus, textarea:focus {
   outline: 2px solid rgba(14, 165, 233, 0.5);
   outline-offset: 2px;
-}
-
-/* Loading state for images */
-.img-loading {
-  background: linear-gradient(90deg, #1e293b, #334155, #1e293b);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
 }
 
 .background {
@@ -91,20 +84,6 @@ button:focus, a:focus, input:focus, select:focus, textarea:focus {
   height: 100%;
   z-index: -1;
   overflow: hidden;
-}
-
-#matrix {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-}
-
-#particles-js {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
 }
 
 .gradient-overlay {
@@ -164,21 +143,22 @@ button:focus, a:focus, input:focus, select:focus, textarea:focus {
 .transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+  transition-duration: 200ms;
 }
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
   .hero-section h2 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
   }
   
   .hero-section p {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
   
   .hero-section button {
-    padding: 0.75rem 1.5rem;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -199,16 +179,6 @@ button:focus, a:focus, input:focus, select:focus, textarea:focus {
   opacity: 1;
 }
 
-/* Reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 /* Error state for images */
 .img-error {
   background-color: #1e293b;
@@ -221,4 +191,14 @@ button:focus, a:focus, input:focus, select:focus, textarea:focus {
   content: "Image failed to load";
   color: #64748b;
   font-size: 0.875rem;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

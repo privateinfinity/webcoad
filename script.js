@@ -1,6 +1,6 @@
-// script.js
+// script.js - Optimized version
 document.addEventListener('DOMContentLoaded', function() {
-  // Performance optimization - disable heavy animations on mobile/low-end devices
+  // Performance optimization - disable animations on low-end devices
   const isLowEndDevice = () => {
     return window.matchMedia('(max-width: 640px)').matches || 
            (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) ||
@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
           once: true,
           offset: 100,
           easing: 'ease-in-out-quart',
+          disable: isLowEndDevice() // Disable on low-end devices
         });
       }
     } catch (e) {
@@ -311,178 +312,20 @@ document.addEventListener('DOMContentLoaded', function() {
   const setupImageLoading = () => {
     document.querySelectorAll('img').forEach(img => {
       if (!img.complete) {
-        img.classList.add('animate-loading');
+        img.classList.add('opacity-0');
+        img.style.transition = 'opacity 0.3s ease';
       }
       
       img.addEventListener('load', () => {
-        img.classList.remove('animate-loading');
+        img.classList.remove('opacity-0');
       });
       
       img.addEventListener('error', () => {
-        img.classList.remove('animate-loading');
+        img.classList.remove('opacity-0');
         img.classList.add('img-error');
         img.alt = img.alt || 'Failed to load image';
       });
     });
-  };
-
-  // Matrix Animation - only on desktop/high-end devices
-  const setupMatrixAnimation = () => {
-    const canvas = document.getElementById('matrix');
-    if (canvas && !isLowEndDevice()) {
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const chars = "01█▓▒░⣿";
-      const fontSize = 14;
-      const columns = canvas.width / fontSize;
-      const drops = Array(Math.floor(columns)).fill(1);
-
-      const draw = () => {
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.fillStyle = '#0ea5e9';
-        ctx.font = `${fontSize}px monospace`;
-
-        drops.forEach((y, i) => {
-          const text = chars[Math.floor(Math.random() * chars.length)];
-          ctx.fillText(text, i * fontSize, y * fontSize);
-          
-          if (y * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-          }
-          drops[i]++;
-        });
-      };
-
-      let matrixInterval = setInterval(draw, 33);
-      
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-        }, 200);
-      });
-
-      // Cleanup on unmount
-      return () => clearInterval(matrixInterval);
-    }
-  };
-
-  // Particles Animation - only on desktop/high-end devices
-  const setupParticles = () => {
-    if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js') && !isLowEndDevice()) {
-      try {
-        particlesJS('particles-js', {
-          particles: {
-            number: { 
-              value: 80,
-              density: {
-                enable: true,
-                value_area: 800
-              } 
-            },
-            color: { value: '#0ea5e9' },
-            shape: { 
-              type: 'circle',
-              stroke: {
-                width: 0,
-                color: '#000000'
-              }
-            },
-            opacity: { 
-              value: 0.5,
-              random: true,
-              anim: {
-                enable: true,
-                speed: 1,
-                opacity_min: 0.1,
-                sync: false
-              }
-            },
-            size: { 
-              value: 3, 
-              random: true,
-              anim: {
-                enable: true,
-                speed: 2,
-                size_min: 0.3,
-                sync: false
-              }
-            },
-            line_linked: {
-              enable: true,
-              distance: 150,
-              color: '#0ea5e9',
-              opacity: 0.3,
-              width: 1
-            },
-            move: {
-              enable: true,
-              speed: 1,
-              direction: 'none',
-              random: true,
-              straight: false,
-              out_mode: 'bounce',
-              bounce: true,
-              attract: {
-                enable: true,
-                rotateX: 600,
-                rotateY: 1200
-              }
-            }
-          },
-          interactivity: {
-            detect_on: 'canvas',
-            events: {
-              onhover: { 
-                enable: true, 
-                mode: 'repulse',
-                distance: 100
-              },
-              onclick: { 
-                enable: true, 
-                mode: 'push' 
-              },
-              resize: true
-            },
-            modes: {
-              repulse: {
-                distance: 100,
-                duration: 0.4
-              },
-              push: {
-                particles_nb: 4
-              }
-            }
-          },
-          retina_detect: true
-        });
-      } catch (e) {
-        console.error("Particles.js initialization failed:", e);
-      }
-    }
-  };
-
-  // Add floating animation to hero section elements
-  const setupHeroAnimations = () => {
-    const heroHeading = document.querySelector('#home h2');
-    const heroButtons = document.querySelectorAll('#home button');
-    
-    if (heroHeading && !isLowEndDevice()) {
-      heroHeading.classList.add('animate-float');
-    }
-    
-    if (heroButtons.length > 0 && !isLowEndDevice()) {
-      heroButtons[0].classList.add('animate-float');
-      heroButtons[0].style.animationDelay = '0.2s';
-      heroButtons[1].classList.add('animate-float');
-      heroButtons[1].style.animationDelay = '0.4s';
-    }
   };
 
   // Initialize all functionality
@@ -494,9 +337,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setupThemeToggle();
     setupSmoothScrolling();
     setupImageLoading();
-    setupMatrixAnimation();
-    setupParticles();
-    setupHeroAnimations();
   };
 
   init();

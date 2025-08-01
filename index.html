@@ -62,18 +62,13 @@
             'slide-down': {
               '0%': { opacity: '0', transform: 'translateY(-20px)' },
               '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            loading: {
-              '0%': { backgroundPosition: '200% 0' },
-              '100%': { backgroundPosition: '-200% 0' },
             }
           },
           animation: {
             float: 'float 6s ease-in-out infinite',
             pulse: 'pulse 4s ease-in-out infinite',
             spin: 'spin 0.5s ease',
-            'slide-down': 'slide-down 0.3s ease-out',
-            loading: 'loading 1.5s infinite',
+            'slide-down': 'slide-down 0.3s ease-out'
           },
         }
       }
@@ -90,10 +85,8 @@
   <!-- Skip to content link for keyboard users -->
   <a href="#main" class="skip-to-content">Skip to content</a>
 
-  <!-- Background elements -->
+  <!-- Lightweight background elements -->
   <div class="background">
-    <canvas id="matrix" aria-hidden="true"></canvas>
-    <div id="particles-js" aria-hidden="true"></div>
     <div class="gradient-overlay"></div>
   </div>
 
@@ -282,13 +275,13 @@
       <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
     </div>
     <div class="max-w-4xl mx-auto relative z-10">
-      <h2 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary-400 to-purple-400 bg-clip-text text-transparent animate-float">Explore Infinity World</h2>
+      <h2 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary-400 to-purple-400 bg-clip-text text-transparent">Explore Infinity World</h2>
       <p class="text-gray-300 mb-8 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">Discover premium applications with beautiful, fast, and responsive UI designed for the modern digital experience.</p>
       <div class="flex gap-4 justify-center flex-wrap">
-        <button class="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-700 hover:from-primary-600 hover:to-primary-800 rounded-full font-semibold transition-all hover:shadow-lg hover:shadow-primary-500/30 flex items-center gap-2 animate-float" style="animation-delay: 0.2s">
+        <button class="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-700 hover:from-primary-600 hover:to-primary-800 rounded-full font-semibold transition-all hover:shadow-lg hover:shadow-primary-500/30 flex items-center gap-2">
           <i class="fas fa-rocket" aria-hidden="true"></i> Get Started
         </button>
-        <button class="px-8 py-4 border-2 border-primary-400 text-primary-400 hover:bg-primary-900/30 rounded-full font-semibold transition-all hover:shadow-lg hover:shadow-primary-500/20 flex items-center gap-2 animate-float" style="animation-delay: 0.4s">
+        <button class="px-8 py-4 border-2 border-primary-400 text-primary-400 hover:bg-primary-900/30 rounded-full font-semibold transition-all hover:shadow-lg hover:shadow-primary-500/20 flex items-center gap-2">
           <i class="fas fa-info-circle" aria-hidden="true"></i> Learn More
         </button>
       </div>
@@ -372,7 +365,7 @@
                class="block w-full h-full flex items-center gap-1"
                aria-label="Download Coming Soon app"
             >
-              <i class="fas fa-cloud-download-alt" aria-hidden="true"></i>    Open  
+              <i class="fas fa-cloud-download-alt" aria-hidden="true"></i>    Soon   
             </a>
           </button>
         </div>
@@ -588,8 +581,6 @@
 
   <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
-  <!-- Particles JS -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
   <!-- Custom JS -->
   <script src="script.js" defer></script>
 </body>
