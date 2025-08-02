@@ -1,0 +1,39 @@
+{
+    "songs": [
+        {
+            "id": 1,
+            "title": "Aankhon Mein Doob Jaane Ko",
+            "artist": "THE 9TEEN",
+            "cover": "https://raw.githubusercontent.com/shm0210/music-player-assets/main/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.jpg",
+            "source": "https://raw.githubusercontent.com/shm0210/music-player-assets/main/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.mp3"
+        },
+        {
+            "id": 2,
+            "title": "Sample Song 2",
+            "artist": "Artist 2",
+            "cover": "https://i.ibb.co/d0Lw85R6/Picsart-25-08-01-19-18-42-186.png",
+            "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+        },
+        {
+            "id": 3,
+            "title": "Sample Song 3",
+            "artist": "Artist 3",
+            "cover": "https://i.ibb.co/d0Lw85R6/Picsart-25-08-01-19-18-42-186.png",
+            "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+        },
+        {
+            "id": 4,
+            "title": "Sample Song 4",
+            "artist": "Artist 4",
+            "cover": "https://i.ibb.co/d0Lw85R6/Picsart-25-08-01-19-18-42-186.png",
+            "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+        },
+        {
+            "id": 5,
+            "title": "Sample Song 5",
+            "artist": "Artist 5",
+            "cover": "https://i.ibb.co/d0Lw85R6/Picsart-25-08-01-19-18-42-186.png",
+            "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+        }
+    ]
+}
