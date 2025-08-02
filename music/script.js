@@ -43,6 +43,7 @@ let isDarkMode = true;
 async function init() {
     loadThemePreference();
     setupEventListeners();
+    setupLazyLoading();
     try {
         await loadSongs();
         createDefaultPlaylists();
@@ -52,6 +53,34 @@ async function init() {
     } catch (error) {
         console.error('Error initializing app:', error);
         showError("Unable to load music library. Please check your internet connection or try again later.");
+    }
+}
+
+// Set up lazy loading for images
+function setupLazyLoading() {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+        const lazyImageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const lazyImage = entry.target;
+                    lazyImage.src = lazyImage.dataset.src || lazyImage.src;
+                    lazyImage.classList.add('loaded');
+                    lazyImageObserver.unobserve(lazyImage);
+                }
+            });
+        });
+
+        lazyImages.forEach(lazyImage => {
+            lazyImageObserver.observe(lazyImage);
+        });
+    } else {
+        // Fallback for browsers without IntersectionObserver
+        lazyImages.forEach(lazyImage => {
+            lazyImage.src = lazyImage.dataset.src || lazyImage.src;
+            lazyImage.classList.add('loaded');
+        });
     }
 }
 
@@ -65,7 +94,6 @@ function showError(message) {
     `;
     document.body.prepend(errorEl);
     
-    // Remove after 5 seconds
     setTimeout(() => {
         errorEl.remove();
     }, 5000);
@@ -75,34 +103,32 @@ function showError(message) {
 async function loadSongs() {
     try {
         const response = await fetch('collection.json');
-        if (!response.ok) {
-            throw new Error('Failed to fetch songs');
-        }
+        if (!response.ok) throw new Error('Failed to fetch songs');
         const data = await response.json();
-        songs = data.songs.map((song, index) => ({ ...song, id: index + 1 }));
+        songs = data.songs;
         console.log(`${songs.length} songs loaded successfully`);
     } catch (error) {
         console.error('Error loading songs:', error);
         showError("Failed to load songs. Using limited offline collection.");
         // Fallback to basic songs
         songs = [
-    {
-      "id": 1,
-      "title": "Aankhon Mein Doob Jaane Ko",
-      "artist": "THE 9TEEN",
-      "cover": "https://raw.githubusercontent.com/shm0210/music-player-assets/main/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.jpg",
-      "source": "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.mp3",
-      "duration": 180
-    },
-    {
-      "id": 2,
-      "title": "Do Pal",
-      "artist": "ABRK",
-      "cover": "https://raw.githubusercontent.com/shm0210/music-player-assets/main/Do%20Pal%20-%20ABRK.jpg",
-      "source": "https://github.com/shm0210/music-player-assets/raw/142ef74720d4bb04b540aa906980d1488fe8d5a6/Do%20Pal%20-%20ABRK.mp3",
-      "duration": 210
-    },
-    {
+            {
+                "id": 1,
+                "title": "Aankhon Mein Doob Jaane Ko",
+                "artist": "THE 9TEEN",
+                "cover": "https://raw.githubusercontent.com/shm0210/music-player-assets/main/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.jpg",
+                "source": "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.mp3",
+                "duration": 180
+            },
+            {
+                "id": 2,
+                "title": "Do Pal",
+                "artist": "ABRK",
+                "cover": "https://raw.githubusercontent.com/shm0210/music-player-assets/main/Do%20Pal%20-%20ABRK.jpg",
+                "source": "https://github.com/shm0210/music-player-assets/raw/142ef74720d4bb04b540aa906980d1488fe8d5a6/Do%20Pal%20-%20ABRK.mp3",
+                "duration": 210
+            },
+   {
       "id": 3,
       "title": "O Meri Laila",
       "artist": "Atif Aslam, Jyotica Tangri",
@@ -246,8 +272,6 @@ async function loadSongs() {
       "source": "https://github.com/shm0210/music-player-assets/raw/0d6edfb9b5708f8f9e1bc6029fa3245ed7a3086f/%E0%A4%B2_%E0%A4%99_%E0%A4%97_%E0%A4%B7_%E0%A4%9F%E0%A4%95%E0%A4%AE_%20-%20Harindu.mp3",
       "duration": 210
     }
-    ]
-} 
         ];
     }
 }
@@ -278,7 +302,6 @@ function setupEventListeners() {
             const pageId = button.getAttribute('data-page');
             switchPage(pageId);
             
-            // Update active state of nav buttons
             navButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
         });
@@ -314,8 +337,6 @@ function setupEventListeners() {
 function switchPage(pageId) {
     Object.values(pages).forEach(page => page.classList.remove('active'));
     pages[pageId.split('-')[0]].classList.add('active');
-    
-    // Scroll to top when switching pages
     window.scrollTo(0, 0);
 }
 
@@ -339,34 +360,38 @@ function loadThemePreference() {
     }
 }
 
+// Create song card element
+function createSongCard(song, index) {
+    const songEl = document.createElement('div');
+    songEl.className = `song-card ${index === currentSongIndex && isPlaying ? 'playing' : ''}`;
+    songEl.innerHTML = `
+        <img src="" data-src="${song.cover}" alt="${song.title}" class="song-cover" loading="lazy">
+        <div class="song-info">
+            <h4 class="song-title">${song.title}</h4>
+            <p class="song-artist">${song.artist}</p>
+        </div>
+        <button class="song-play-btn" data-id="${song.id}">
+            <i class="fas ${index === currentSongIndex && isPlaying ? 'fa-pause' : 'fa-play'}"></i>
+        </button>
+    `;
+    
+    songEl.querySelector('.song-play-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (index === currentSongIndex && isPlaying) {
+            togglePlay();
+        } else {
+            playSong(index);
+        }
+    });
+    
+    return songEl;
+}
+
 // Render all songs in home page
 function renderAllSongs() {
     allSongsContainer.innerHTML = '';
-    
     songs.forEach((song, index) => {
-        const songEl = document.createElement('div');
-        songEl.className = `song-card ${index === currentSongIndex && isPlaying ? 'playing' : ''}`;
-        songEl.innerHTML = `
-            <img src="${song.cover}" alt="${song.title}" class="song-cover" loading="lazy">
-            <div class="song-info">
-                <h4 class="song-title">${song.title}</h4>
-                <p class="song-artist">${song.artist}</p>
-            </div>
-            <button class="song-play-btn" data-id="${song.id}">
-                <i class="fas ${index === currentSongIndex && isPlaying ? 'fa-pause' : 'fa-play'}"></i>
-            </button>
-        `;
-        allSongsContainer.appendChild(songEl);
-        
-        // Add click event to play/pause song
-        songEl.querySelector('.song-play-btn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (index === currentSongIndex && isPlaying) {
-                togglePlay();
-            } else {
-                playSong(index);
-            }
-        });
+        allSongsContainer.appendChild(createSongCard(song, index));
     });
 }
 
@@ -378,7 +403,7 @@ function renderPlaylists() {
         const playlistEl = document.createElement('div');
         playlistEl.className = 'playlist-card';
         playlistEl.innerHTML = `
-            <img src="${playlist.cover}" alt="${playlist.name}" class="playlist-cover" loading="lazy">
+            <img src="" data-src="${playlist.cover}" alt="${playlist.name}" class="playlist-cover" loading="lazy">
             <div class="playlist-info">
                 <h4 class="playlist-name">${playlist.name}</h4>
                 <p class="playlist-song-count">${playlist.songs.length} songs</p>
@@ -389,14 +414,12 @@ function renderPlaylists() {
         `;
         playlistsContainer.appendChild(playlistEl);
         
-        // Add click event to view playlist songs
         playlistEl.addEventListener('click', (e) => {
             if (!e.target.closest('.playlist-play-btn')) {
                 viewPlaylistSongs(playlist.id);
             }
         });
         
-        // Add click event to play all songs in playlist
         playlistEl.querySelector('.playlist-play-btn').addEventListener('click', (e) => {
             e.stopPropagation();
             playPlaylist(playlist.id);
@@ -409,7 +432,6 @@ function playPlaylist(playlistId) {
     const playlist = playlists.find(p => p.id === playlistId);
     if (!playlist || playlist.songs.length === 0) return;
     
-    // Find the index of the first song in the playlist
     const firstSongId = playlist.songs[0];
     const firstSongIndex = songs.findIndex(s => s.id === firstSongId);
     
@@ -426,7 +448,6 @@ function viewPlaylistSongs(playlistId) {
     
     currentPlaylist = playlist;
     
-    // Hide playlists and show songs container
     playlistsContainer.style.display = 'none';
     playlistSongsContainer.style.display = 'block';
     playlistSongsContainer.innerHTML = `
@@ -438,44 +459,18 @@ function viewPlaylistSongs(playlistId) {
         <div class="songs-container" id="current-playlist-songs"></div>
     `;
     
-    // Add back button event
     playlistSongsContainer.querySelector('.back-to-playlists').addEventListener('click', () => {
         playlistsContainer.style.display = 'grid';
         playlistSongsContainer.style.display = 'none';
     });
     
-    // Render playlist songs
     const playlistSongsContainerInner = document.getElementById('current-playlist-songs');
     playlistSongsContainerInner.innerHTML = '';
     
     playlist.songs.forEach(songId => {
         const songIndex = songs.findIndex(s => s.id === songId);
         if (songIndex === -1) return;
-        const song = songs[songIndex];
-        
-        const songEl = document.createElement('div');
-        songEl.className = `song-card ${songIndex === currentSongIndex && isPlaying ? 'playing' : ''}`;
-        songEl.innerHTML = `
-            <img src="${song.cover}" alt="${song.title}" class="song-cover" loading="lazy">
-            <div class="song-info">
-                <h4 class="song-title">${song.title}</h4>
-                <p class="song-artist">${song.artist}</p>
-            </div>
-            <button class="song-play-btn" data-id="${song.id}">
-                <i class="fas ${songIndex === currentSongIndex && isPlaying ? 'fa-pause' : 'fa-play'}"></i>
-            </button>
-        `;
-        playlistSongsContainerInner.appendChild(songEl);
-        
-        // Add click event to play/pause song
-        songEl.querySelector('.song-play-btn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (songIndex === currentSongIndex && isPlaying) {
-                togglePlay();
-            } else {
-                playSong(songIndex);
-            }
-        });
+        playlistSongsContainerInner.appendChild(createSongCard(songs[songIndex], songIndex));
     });
 }
 
@@ -503,31 +498,9 @@ function handleSearch() {
     `;
     
     const searchSongsContainer = document.getElementById('search-songs');
-    results.forEach((song, index) => {
+    results.forEach((song) => {
         const songIndex = songs.findIndex(s => s.id === song.id);
-        const songEl = document.createElement('div');
-        songEl.className = `song-card ${songIndex === currentSongIndex && isPlaying ? 'playing' : ''}`;
-        songEl.innerHTML = `
-            <img src="${song.cover}" alt="${song.title}" class="song-cover" loading="lazy">
-            <div class="song-info">
-                <h4 class="song-title">${song.title}</h4>
-                <p class="song-artist">${song.artist}</p>
-            </div>
-            <button class="song-play-btn" data-id="${song.id}">
-                <i class="fas ${songIndex === currentSongIndex && isPlaying ? 'fa-pause' : 'fa-play'}"></i>
-            </button>
-        `;
-        searchSongsContainer.appendChild(songEl);
-        
-        // Add click event to play/pause song
-        songEl.querySelector('.song-play-btn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (songIndex === currentSongIndex && isPlaying) {
-                togglePlay();
-            } else {
-                playSong(songIndex);
-            }
-        });
+        searchSongsContainer.appendChild(createSongCard(song, songIndex));
     });
 }
 
@@ -535,7 +508,6 @@ function handleSearch() {
 function playSong(index) {
     if (index < 0 || index >= songs.length) return;
     
-    // If same song is playing, just toggle play/pause
     if (index === currentSongIndex && isPlaying) {
         togglePlay();
         return;
@@ -561,12 +533,10 @@ function playSong(index) {
 
 // Update all playing states (UI indicators)
 function updatePlayingStates() {
-    // Update all song cards
     document.querySelectorAll('.song-card').forEach(card => {
         card.classList.remove('playing');
     });
     
-    // Update current song card
     const currentSongCards = document.querySelectorAll(`.song-card button[data-id="${songs[currentSongIndex].id}"]`);
     currentSongCards.forEach(btn => {
         const card = btn.closest('.song-card');
@@ -601,7 +571,6 @@ function togglePlay() {
 // Play next song
 function nextSong() {
     if (currentPlaylist) {
-        // Find next song in current playlist
         const currentSongId = songs[currentSongIndex].id;
         const currentIndexInPlaylist = currentPlaylist.songs.indexOf(currentSongId);
         if (currentIndexInPlaylist !== -1 && currentIndexInPlaylist < currentPlaylist.songs.length - 1) {
@@ -614,7 +583,6 @@ function nextSong() {
         }
     }
     
-    // Default to next song in all songs
     currentSongIndex = (currentSongIndex + 1) % songs.length;
     playSong(currentSongIndex);
 }
@@ -622,7 +590,6 @@ function nextSong() {
 // Play previous song
 function prevSong() {
     if (currentPlaylist) {
-        // Find previous song in current playlist
         const currentSongId = songs[currentSongIndex].id;
         const currentIndexInPlaylist = currentPlaylist.songs.indexOf(currentSongId);
         if (currentIndexInPlaylist > 0) {
@@ -635,7 +602,6 @@ function prevSong() {
         }
     }
     
-    // Default to previous song in all songs
     currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
     playSong(currentSongIndex);
 }
@@ -645,8 +611,6 @@ function updateProgress() {
     const { currentTime, duration } = audioPlayer;
     const progressPercent = (currentTime / duration) * 100;
     progress.style.width = `${progressPercent}%`;
-    
-    // Update time display
     currentTimeEl.textContent = formatTime(currentTime);
 }
 
@@ -666,7 +630,6 @@ function updateDuration() {
 // Format time (seconds to MM:SS)
 function formatTime(seconds) {
     if (isNaN(seconds)) return '0:00';
-    
     const minutes = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
@@ -689,8 +652,6 @@ function updatePlayButton() {
 function updateProfileStats() {
     totalSongsEl.textContent = songs.length;
     totalPlaylistsEl.textContent = playlists.length;
-    
-    // Calculate total duration in hours
     const totalMinutes = songs.reduce((sum, song) => sum + (song.duration || 180), 0) / 60;
     totalHoursEl.textContent = Math.round(totalMinutes / 60);
 }
