@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEETORY | Music Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+</head>
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+               <img src="https://i.ibb.co/d0Lw85R6/Picsart-25-08-01-19-18-42-186.png" alt="Geetory Logo" class="logo-img">
+               <span>GEETORY</span>
+           </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="icon-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="icon-btn" id="now-playing-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Page (Default) -->
+            <section id="home-page" class="page active">
+                <h2 class="page-title">All Songs</h2>
+                <div class="songs-container" id="all-songs">
+                    <!-- Songs will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Search Page -->
+            <section id="search-page" class="page">
+                <div class="search-container">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Search songs, artists...">
+                        <button id="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="search-results" id="search-results">
+                        <!-- Search results will appear here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Playlist Page -->
+            <section id="playlist-page" class="page">
+                <h2 class="page-title">Your Playlists</h2>
+                <div class="playlists-container" id="playlists">
+                    <!-- Playlists will be loaded here -->
+                </div>
+                <div class="playlist-songs-container" id="playlist-songs-container">
+                    <!-- Songs in selected playlist will appear here -->
+                </div>
+            </section>
+
+            <!-- Profile Page -->
+            <section id="profile-page" class="page">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h2>SHUBHAM</h2>
+                        <p class="profile-subtitle">Music Enthusiast</p>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-songs">0</span>
+                            <span class="stat-label">Songs</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-playlists">0</span>
+                            <span class="stat-label">Playlists</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-hours">0</span>
+                            <span class="stat-label">Hours</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Now Playing Bar -->
+        <div class="now-playing-bar" id="now-playing-bar">
+            <div class="now-playing-info">
+                <img src="" alt="Song Cover" class="now-playing-cover" id="now-playing-cover">
+                <div class="now-playing-details">
+                    <h4 class="now-playing-title" id="now-playing-title">Not Playing</h4>
+                    <p class="now-playing-artist" id="now-playing-artist">Select a song</p>
+                </div>
+            </div>
+            <div class="now-playing-controls">
+                <button class="control-btn" id="prev-btn"><i class="fas fa-step-backward"></i></button>
+                <button class="control-btn play-btn" id="play-btn"><i class="fas fa-play"></i></button>
+                <button class="control-btn" id="next-btn"><i class="fas fa-step-forward"></i></button>
+            </div>
+            <div class="now-playing-progress">
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="time-display">
+                    <span id="current-time">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
+            <audio id="audio-player"></audio>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-page="home-page">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-btn" data-page="search-page">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </button>
+            <button class="nav-btn" data-page="playlist-page">
+                <i class="fas fa-list"></i>
+                <span>Playlists</span>
+            </button>
+            <button class="nav-btn" data-page="profile-page">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
