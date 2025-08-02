@@ -103,6 +103,24 @@ async function loadSongs() {
                 duration: 210
             },
             {
+    "songs": [
+        {
+            "id": 1,
+            "title": "Aankhon Mein Doob Jaane Ko",
+            "artist": "THE 9TEEN",
+            "cover": "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.jpg",
+            "source": "https://github.com/shm0210/music-player-assets/raw/1cbdfe8e6901f66979187086006464a34542d86d/Aankhon%20Mein%20Doob%20Jaane%20Ko%20-%20THE%209TEEN.mp3",
+            "duration": 180
+        },
+        {
+            "id": 2,
+            "title": "Do Pal",
+            "artist": "ABRK",
+            "cover": "https://github.com/shm0210/music-player-assets/raw/142ef74720d4bb04b540aa906980d1488fe8d5a6/Do%20Pal%20-%20ABRK.jpg",
+            "source": "https://github.com/shm0210/music-player-assets/raw/142ef74720d4bb04b540aa906980d1488fe8d5a6/Do%20Pal%20-%20ABRK.mp3",
+            "duration": 210
+        },
+        {
             "id": 3,
             "title": "O Meri Laila",
             "artist": "Atif Aslam, Jyotica Tangri",
@@ -246,6 +264,8 @@ async function loadSongs() {
   "source": "https://github.com/shm0210/music-player-assets/raw/0d6edfb9b5708f8f9e1bc6029fa3245ed7a3086f/%E0%A4%B2_%E0%A4%99_%E0%A4%97_%E0%A4%B7_%E0%A4%9F%E0%A4%95%E0%A4%AE_%20-%20Harindu.mp3",
   "duration": 210
 }
+    ]
+} 
         ];
     }
 }
@@ -257,25 +277,13 @@ function createDefaultPlaylists() {
             id: 1,
             name: "Favorites",
             cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
-            songs: [1, 2, 3, 4, 5]
+            songs: [1, 2]
         },
         {
             id: 2,
             name: "Spritual",
             cover: "https://mosaic.scdn.co/640/ab67616d00001e021592fefed668233b3d38fa0eab67616d00001e023874cc361eca103f5dd69286ab67616d00001e02759b1cd31a392ad7a5fb1e9aab67616d00001e02790d4c884ca491d8562156a2",
             songs: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-        },
-        {
-            id: 3,
-            name: "Chill Vibes",
-            cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
-            songs: [2]
-        },
-        {
-            id: 4,
-            name: "Road Trip",
-            cover: "https://mosaic.scdn.co/640/ab67616d00001e024c375a25c4afc9c754061da6ab67616d00001e0275a0429b40af0e83780b58e3ab67616d00001e02f332a3bc2f19abf7de632042ab67616d00001e02fc8c4535825cdc0bcafde19a",
-            songs: [1, 2]
         }
     ];
 }
@@ -376,10 +384,6 @@ function renderAllSongs() {
             } else {
                 playSong(index);
             }
-        });
-        
-        songEl.addEventListener('click', () => {
-            // Optional: Add to queue or show song details
         });
     });
 }
@@ -518,8 +522,9 @@ function handleSearch() {
     
     const searchSongsContainer = document.getElementById('search-songs');
     results.forEach((song, index) => {
+        const songIndex = songs.findIndex(s => s.id === song.id);
         const songEl = document.createElement('div');
-        songEl.className = `song-card ${index === currentSongIndex && isPlaying ? 'playing' : ''}`;
+        songEl.className = `song-card ${songIndex === currentSongIndex && isPlaying ? 'playing' : ''}`;
         songEl.innerHTML = `
             <img src="${song.cover}" alt="${song.title}" class="song-cover" loading="lazy">
             <div class="song-info">
@@ -527,7 +532,7 @@ function handleSearch() {
                 <p class="song-artist">${song.artist}</p>
             </div>
             <button class="song-play-btn" data-id="${song.id}">
-                <i class="fas ${index === currentSongIndex && isPlaying ? 'fa-pause' : 'fa-play'}"></i>
+                <i class="fas ${songIndex === currentSongIndex && isPlaying ? 'fa-pause' : 'fa-play'}"></i>
             </button>
         `;
         searchSongsContainer.appendChild(songEl);
@@ -535,7 +540,6 @@ function handleSearch() {
         // Add click event to play/pause song
         songEl.querySelector('.song-play-btn').addEventListener('click', (e) => {
             e.stopPropagation();
-            const songIndex = songs.findIndex(s => s.id === song.id);
             if (songIndex === currentSongIndex && isPlaying) {
                 togglePlay();
             } else {

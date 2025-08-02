@@ -112,6 +112,8 @@ body {
         height: 30px;
     }
 }
+
+
 /* Add these to your existing style.css */
 .error-message {
     position: fixed;
@@ -163,6 +165,12 @@ img[loading="lazy"] {
 
 img[loading="lazy"].loaded {
     opacity: 1;
+}
+
+.no-results {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 2rem;
 }
 
 /* Main Content Styles */
