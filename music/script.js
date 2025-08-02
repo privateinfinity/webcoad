@@ -86,7 +86,7 @@ async function loadSongs() {
         showError("Failed to load songs. Using limited offline collection.");
         // Fallback to basic songs
         songs = [
-            {
+    {
       "id": 1,
       "title": "Aankhon Mein Doob Jaane Ko",
       "artist": "THE 9TEEN",
