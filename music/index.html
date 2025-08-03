@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEETORY - Music Player</title>
+    <title>GEETORY - The Music Player</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" href="https://i.ibb.co/d0Lw85R6/Picsart-25-08-01-19-18-42-186.png">
 </head>
 <body class="dark-mode">
     <div class="app-container">
         <!-- Header -->
-        <header class="header">
+        <header class="app-header">
             <div class="logo-container">
-                <img src="https://i.ibb.co/d0Lw85R6/Picsart-25-08-01-19-18-42-186.png" alt="GEETORY Logo" class="logo">
+                <img src="https://i.ibb.co/7DRYT8b/Picsart-25-08-02-22-46-27-708.jpg" alt="GEETORY Logo" class="logo">
                 <h1>GEETORY</h1>
             </div>
-            <div class="header-controls">
-                <button id="theme-toggle" class="icon-button">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button id="settings-button" class="icon-button">
-                    <i class="fas fa-cog"></i>
-                </button>
-            </div>
+            <button class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
         </header>
 
         <!-- Main Content -->
@@ -31,7 +27,7 @@
             <!-- Home Page (Default) -->
             <section id="home-page" class="page active">
                 <h2 class="page-title">All Songs</h2>
-                <div class="songs-container" id="all-songs">
+                <div class="songs-list" id="all-songs">
                     <!-- Songs will be loaded here from JavaScript -->
                 </div>
             </section>
@@ -39,73 +35,99 @@
             <!-- Search Page -->
             <section id="search-page" class="page">
                 <div class="search-container">
-                    <input type="text" id="search-input" placeholder="Search songs...">
+                    <input type="text" id="search-input" placeholder="Search songs, artists, albums...">
                     <button id="search-button"><i class="fas fa-search"></i></button>
                 </div>
                 <div class="search-results" id="search-results">
                     <!-- Search results will appear here -->
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <p>Search for songs, artists or albums</p>
+                    </div>
                 </div>
             </section>
 
             <!-- Playlist Page -->
             <section id="playlist-page" class="page">
-                <h2 class="page-title">Your Playlists</h2>
-                <div class="playlists-container" id="playlists">
-                    <!-- Playlists will be loaded here -->
+                <div class="playlists-container" id="playlists-view">
+                    <h2 class="page-title">Your Playlists</h2>
+                    <div class="playlists-grid" id="playlists-list">
+                        <!-- Playlists will be loaded here -->
+                        <div class="empty-state">
+                            <i class="fas fa-music"></i>
+                            <p>No playlists yet</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="playlist-songs-container" id="playlist-songs">
-                    <!-- Songs in selected playlist will appear here -->
+
+                <div class="playlist-detail" id="playlist-detail-view" style="display: none;">
+                    <div class="playlist-header">
+                        <button class="back-button" id="back-to-playlists">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <h2 class="playlist-name" id="detail-playlist-name">Playlist Name</h2>
+                    </div>
+                    <div class="playlist-songs" id="playlist-songs-list">
+                        <!-- Songs in playlist will appear here -->
+                    </div>
                 </div>
             </section>
 
             <!-- Profile Page -->
             <section id="profile-page" class="page">
                 <div class="profile-container">
-                    <div class="profile-pic">
-                        <i class="fas fa-user"></i>
+                    <div class="profile-header">
+                        <img src="https://shminfinity.fun/player">
+                        <h2>SHUBHAM</h2>
                     </div>
-                    <h2>SHUBHAM</h2>
-                    <p>Music Enthusiast</p>
                     <div class="profile-stats">
-                        <div class="stat">
-                            <span id="total-songs">0</span>
-                            <span>Songs</span>
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-songs">0</span>
+                            <span class="stat-label">Songs</span>
                         </div>
-                        <div class="stat">
-                            <span id="total-playlists">0</span>
-                            <span>Playlists</span>
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-playlists">0</span>
+                            <span class="stat-label">Playlists</span>
                         </div>
                     </div>
                 </div>
+                <footer class="app-footer">
+                    <p>GEETORY Music Player</p>
+                    <p>© 2023 All Rights Reserved</p>
+                </footer>
             </section>
         </main>
 
         <!-- Player Controls -->
-        <div class="player-container">
+        <div class="player-container" id="player-container" style="display: none;">
             <div class="song-info">
-                <img id="now-playing-cover" src="https://i.ibb.co/d0Lw85R6/Picsart-25-08-01-19-18-42-186.png" alt="Now Playing">
+                <img src="https://via.placeholder.com/50" alt="Song Cover" id="now-playing-cover" class="now-playing-cover">
                 <div class="song-details">
-                    <h3 id="now-playing-title">No song selected</h3>
-                    <p id="now-playing-artist">GEETORY</p>
+                    <p class="song-title" id="now-playing-title">Not Playing</p>
+                    <p class="song-artist" id="now-playing-artist">-</p>
                 </div>
             </div>
             <div class="player-controls">
-                <button id="prev-button"><i class="fas fa-step-backward"></i></button>
-                <button id="play-button"><i class="fas fa-play"></i></button>
-                <button id="next-button"><i class="fas fa-step-forward"></i></button>
+                <button class="control-button" id="prev-button">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="control-button play-button" id="play-button">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="control-button" id="next-button">
+                    <i class="fas fa-step-forward"></i>
+                </button>
             </div>
             <div class="progress-container">
-                <span id="current-time">0:00</span>
-                <input type="range" id="progress-bar" value="0">
-                <span id="duration">0:00</span>
-            </div>
-            <div class="volume-control">
-                <i class="fas fa-volume-up"></i>
-                <input type="range" id="volume-bar" min="0" max="1" step="0.01" value="0.7">
+                <span class="time" id="current-time">0:00</span>
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <span class="time" id="duration">0:00</span>
             </div>
         </div>
 
-        <!-- Navigation -->
+        <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <button class="nav-button active" data-page="home-page">
                 <i class="fas fa-home"></i>
@@ -125,14 +147,6 @@
             </button>
         </nav>
     </div>
-
-    <!-- Audio Element -->
-    <audio id="audio-player"></audio>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2023 GEETORY Music Player. All rights reserved.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
